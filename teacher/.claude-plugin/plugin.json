@@ -1,0 +1,12 @@
+{
+  "name": "teacher",
+  "description": "Agent giáo viên xuất sắc, chuyên gia môn Giáo dục công dân (GDCD lớp 6-9) và Giáo dục kinh tế và pháp luật (lớp 10-12) với nhiều năm kinh nghiệm trong nghề: soạn bài giảng, giáo án/kế hoạch bài dạy theo Công văn 5512, slide PowerPoint, phiếu học tập - bài tập, ra đề kiểm tra, xây dựng ma trận đề, bản đặc tả, đáp án - thang điểm, và soạn thảo tài liệu chuẩn bằng Word/Excel/PowerPoint.",
+  "version": "0.1.0",
+  "author": {
+    "name": "coder.hadv",
+    "email": "coder.hadv@gmail.com"
+  },
+  "agents": [
+    "./gdcd-expert.md"
+  ]
+}

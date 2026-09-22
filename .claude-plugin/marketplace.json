@@ -1,0 +1,22 @@
+{
+  "name": "dev-quality-toolkit",
+  "description": "Bộ plugin nội bộ hỗ trợ thiết kế AI agent và review commit (Android, Qt C++/C).",
+  "owner": {
+    "name": "coder.hadv",
+    "email": "coder.hadv@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "agent-architect",
+      "source": "./agent-architect",
+      "description": "Agent chuyên thiết kế và tạo mới các AI sub-agent chuyên nghiệp (Claude Code subagent, Claude Agent SDK agent) theo chuẩn Anthropic và best practice ngành.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "developer",
+      "source": "./developer",
+      "description": "Bộ agent phục vụ senior developer: review commit theo stack (Android, Qt C++/C), review code Python (PEP8 + bảo mật), audit lỗ hổng bảo mật đa ngôn ngữ, phân tích hiệu năng (bottleneck, query chậm, N+1, memory leak), review tài liệu Markdown.",
+      "version": "0.1.0"
+    }
+  ]
+}

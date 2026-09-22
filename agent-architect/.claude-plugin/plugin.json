@@ -1,0 +1,9 @@
+{
+  "name": "agent-architect",
+  "description": "Agent chuyên thiết kế và tạo mới các AI sub-agent chuyên nghiệp (Claude Code subagent, Claude Agent SDK agent) theo chuẩn Anthropic và best practice ngành.",
+  "version": "0.1.0",
+  "author": {
+    "name": "coder.hadv",
+    "email": "coder.hadv@gmail.com"
+  }
+}

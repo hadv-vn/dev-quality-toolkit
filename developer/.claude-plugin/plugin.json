@@ -1,0 +1,42 @@
+{
+  "name": "developer",
+  "description": "Bộ agent phục vụ senior developer: review commit theo stack (Android, Qt C++/C), review chất lượng code Python (PEP8 + bảo mật), audit lỗ hổng bảo mật đa ngôn ngữ, phân tích hiệu năng (bottleneck, query chậm, N+1, memory leak), đánh giá thiết kế kiến trúc (coupling/cohesion, layering, SOLID, circular dependency, god object), audit dependency/package bên thứ 3 (package lỗi thời, CVE, license rủi ro) đa package manager, review tài liệu Markdown, viết unit test đa ngôn ngữ/đa framework (Jest/Vitest, pytest, JUnit, XCTest, Qt Test/Catch2/GoogleTest, go test...) cho code hiện có, phân tích test coverage để tìm vùng code thiếu test và xếp ưu tiên viết test theo rủi ro/độ phức tạp/tần suất thay đổi, viết và chạy test end-to-end/integration (Playwright, Cypress, Espresso, XCUITest, Postman/Newman, Testcontainers...) trong môi trường an toàn, và phát hiện/sửa flaky test dựa trên bằng chứng thực tế (chạy lại nhiều lần, xác định nguyên nhân gốc như race condition, shared state, thời gian hệ thống, network không mock, random không seed), truy nguyên nguyên nhân gốc của một sự cố/stack trace cụ thể qua call chain và git blame, và phân tích tập log production diện rộng để tìm pattern bất thường (error rate spike, log spam, resource leak trend, PII/secret rò rỉ ra log), viết/cập nhật tài liệu kỹ thuật dạng văn xuôi (README, hướng dẫn cài đặt/sử dụng, CONTRIBUTING) dựa trên nội dung xác minh được từ code, sinh/cập nhật tài liệu API từ code thực tế (OpenAPI/Swagger, docstring/JSDoc/Javadoc đa ngôn ngữ) và phát hiện doc lỗi thời so với signature hiện tại, ghi lại quyết định kỹ thuật/kiến trúc thành Architecture Decision Record theo template chuẩn, và tổng hợp CHANGELOG từ lịch sử commit/PR giữa hai mốc theo Conventional Commits hoặc suy luận hợp lý, thực hiện refactor an toàn behavior-preserving có xác minh bằng test trước/sau, nâng cấp version dependency/framework cụ thể kèm xử lý breaking change và chạy test xác nhận không regression, và quét codebase để tìm/ưu tiên hóa nợ kỹ thuật (TODO/FIXME, dead code, API deprecated, test bị skip, hotspot rủi ro cao) thành backlog, chẩn đoán và sửa pipeline CI bị fail mà không làm CI pass giả, kiểm tra cấu hình pre-flight trước khi deploy (env var, secret, health check, resource limits), review Terraform/K8s/CloudFormation/Helm phát hiện cấu hình rủi ro (IAM quá rộng, network exposure, thiếu mã hóa, secret hardcode), tối ưu Dockerfile (size, layer caching, bảo mật) có xác minh build thực tế, lên kế hoạch triển khai tính năng lớn kèm trade-off giữa các phương án, thiết kế endpoint REST/GraphQL mới nhất quán với convention hiện có, review migration/schema database (index, chuẩn hóa, constraint, an toàn khi chạy trên production), viết mô tả PR từ diff theo template dự án, chuẩn hóa commit message theo Conventional Commits, và giải thích codebase cho developer mới onboarding.",
+  "version": "0.1.0",
+  "author": {
+    "name": "coder.hadv",
+    "email": "coder.hadv@gmail.com"
+  },
+  "agents": [
+    "./review/android-commit-reviewer.md",
+    "./review/qt-cpp-commit-reviewer.md",
+    "./review/python-pep8-security-reviewer.md",
+    "./security-quality/security-auditor.md",
+    "./security-quality/performance-profiler.md",
+    "./security-quality/architecture-reviewer.md",
+    "./security-quality/dependency-auditor.md",
+    "./docs/docs-reviewer.md",
+    "./testing/test-writer.md",
+    "./testing/test-coverage-analyzer.md",
+    "./testing/e2e-test-runner.md",
+    "./testing/flaky-test-detector.md",
+    "./debug/root-cause-analyzer.md",
+    "./debug/log-analyzer.md",
+    "./docs/doc-writer.md",
+    "./docs/api-doc-generator.md",
+    "./docs/adr-writer.md",
+    "./docs/changelog-writer.md",
+    "./refactor/refactor-assistant.md",
+    "./refactor/dependency-upgrader.md",
+    "./refactor/tech-debt-tracker.md",
+    "./devops/ci-fixer.md",
+    "./devops/deployment-validator.md",
+    "./devops/iac-reviewer.md",
+    "./devops/docker-optimizer.md",
+    "./design/system-architect.md",
+    "./design/api-designer.md",
+    "./design/db-schema-reviewer.md",
+    "./collab/pr-description-writer.md",
+    "./collab/commit-message-writer.md",
+    "./collab/onboarding-guide.md"
+  ]
+}
