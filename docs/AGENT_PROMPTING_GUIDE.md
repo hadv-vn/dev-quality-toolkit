@@ -168,3 +168,4 @@ Nếu một diff/thay đổi trải rộng nhiều domain (ví dụ vừa có co
 có tài liệu Markdown thay đổi), có thể gọi lần lượt từng agent đúng phạm vi
 của nó thay vì kỳ vọng một agent xử lý hết — mỗi agent trong bộ này được
 thiết kế theo nguyên tắc single-responsibility (một agent làm tốt một việc).
+1
