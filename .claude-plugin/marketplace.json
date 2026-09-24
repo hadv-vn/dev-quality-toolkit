@@ -17,6 +17,12 @@
       "source": "./developer",
       "description": "Bộ agent phục vụ senior developer: review commit theo stack (Android, Qt C++/C), review code Python (PEP8 + bảo mật), audit lỗ hổng bảo mật đa ngôn ngữ, phân tích hiệu năng (bottleneck, query chậm, N+1, memory leak), review tài liệu Markdown.",
       "version": "0.1.0"
+    },
+    {
+      "name": "teacher",
+      "source": "./teacher",
+      "description": "Agent giáo viên xuất sắc, chuyên gia môn GDCD (lớp 6-9) và Giáo dục kinh tế và pháp luật (lớp 10-12): soạn bài giảng, giáo án/kế hoạch bài dạy, slide PowerPoint, phiếu học tập, ra đề kiểm tra, ma trận, bản đặc tả bằng Word/Excel/PowerPoint.",
+      "version": "0.1.0"
     }
   ]
 }
