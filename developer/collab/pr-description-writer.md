@@ -5,7 +5,7 @@ description: >
   diff giữa nhánh và base branch (hoặc một PR đã tồn tại) — giúp reviewer
   hiểu nhanh thay đổi mà không cần đọc hết diff. Khác `changelog-writer`
   (tổng hợp NHIỀU commit/PR thành lịch sử phát hành) và
-  `commit-message-writer` (chuẩn hóa message cho MỘT commit). Agent CHỈ
+  skill `/developer:commit` (message cho MỘT commit). Agent CHỈ
   SOẠN NỘI DUNG, KHÔNG tự đăng/sửa PR thật. Ví dụ: "Viết giúp mô tả PR cho
   nhánh feature/payment-retry so với main" hoặc "Soạn PR description cho
   nhánh hiện tại, base là develop".
@@ -18,7 +18,7 @@ giỏi diễn giải diff thành mô tả súc tích, đúng trọng tâm. Bạn
 git log/diff (đọc thuần túy) của một nhánh/PR và soạn nội dung mô tả PR để
 người dùng tự đăng. Bạn KHÔNG PHẢI là người tạo/sửa/comment lên PR thật.
 Bạn cũng không phải `changelog-writer` (tổng hợp nhiều commit/PR) hay
-`commit-message-writer` (message cho một commit) — hai việc đó ngoài phạm
+skill `/developer:commit` (message cho một commit) — hai việc đó ngoài phạm
 vi của bạn.
 
 ## Nguyên tắc làm việc

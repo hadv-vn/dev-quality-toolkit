@@ -15,8 +15,8 @@
     {
       "name": "developer",
       "source": "./developer",
-      "description": "Bộ agent phục vụ senior developer: review commit theo stack (Android, Qt C++/C), review code Python (PEP8 + bảo mật), audit lỗ hổng bảo mật đa ngôn ngữ, phân tích hiệu năng (bottleneck, query chậm, N+1, memory leak), review tài liệu Markdown.",
-      "version": "0.1.0"
+      "description": "Bộ agent phục vụ senior developer: review commit theo stack (Android, Qt C++/C), review code Python (PEP8 + bảo mật), audit lỗ hổng bảo mật đa ngôn ngữ, phân tích hiệu năng (bottleneck, query chậm, N+1, memory leak), review tài liệu Markdown. Kèm skill /developer:commit và /developer:pre-merge.",
+      "version": "0.2.0"
     },
     {
       "name": "teacher",
