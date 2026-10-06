@@ -9,7 +9,10 @@ Tài liệu gồm 3 phần: (A) các mô hình SDLC chuẩn phổ biến trên t
 quy trình sản xuất phần mềm thực tế tại FPT Software (FSoft) — một trong các
 công ty đạt CMMI Level 5, và (C) quy trình 6 giai đoạn kèm agent hỗ trợ trong
 toolkit này. Xem thêm file [`SO_SANH_SDLC_THE_GIOI_FSOFT.md`](./SO_SANH_SDLC_THE_GIOI_FSOFT.md)
-để so sánh trực tiếp hai quy trình.
+để so sánh trực tiếp hai quy trình, và file
+[`QUY_TRINH_CHI_TIET.md`](./QUY_TRINH_CHI_TIET.md) cho bản đặc tả chi tiết
+từng giai đoạn (vai trò/RACI, điều kiện vào/ra, quality gate, template,
+checklist).
 
 ---
 
@@ -192,6 +195,8 @@ API, mô hình dữ liệu — trước khi code.
 | Việc cần làm | Agent |
 |---|---|
 | Lập kế hoạch kiến trúc cho tính năng/hệ thống lớn, so sánh trade-off | `system-architect` |
+| Tài liệu hóa HLD chính thức sau khi phương án kiến trúc đã chốt | `high-level-designer` |
+| Chi tiết hóa HLD thành LLD (class, sequence, pseudocode) trước khi code | `low-level-designer` |
 | Thiết kế endpoint REST/GraphQL mới, nhất quán với convention hiện có | `api-designer` |
 | Review migration/schema database trước khi áp dụng | `db-schema-reviewer` |
 | Ghi lại một quyết định kiến trúc đã chốt thành ADR | `adr-writer` |
