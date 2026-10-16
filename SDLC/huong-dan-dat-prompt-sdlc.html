@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Hướng dẫn đặt prompt sản xuất phần mềm theo quy trình SDLC</title>
+<style>
+  @page { size: A4; margin: 20mm 16mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", "Noto Sans", Arial, sans-serif;
+    color: #1a1a2e;
+    line-height: 1.5;
+    font-size: 11pt;
+  }
+  h1 {
+    font-size: 20pt;
+    color: #0f2a4a;
+    border-bottom: 3px solid #2b6cb0;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+  }
+  .subtitle { color: #555; font-size: 10.5pt; margin-top: 0; margin-bottom: 20px; }
+  h2 {
+    font-size: 14.5pt;
+    color: #0f2a4a;
+    background: #eef4fb;
+    border-left: 5px solid #2b6cb0;
+    padding: 6px 10px;
+    margin-top: 26px;
+    margin-bottom: 10px;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 11.5pt;
+    color: #2b6cb0;
+    margin-top: 14px;
+    margin-bottom: 4px;
+    page-break-after: avoid;
+  }
+  code {
+    background: #f1f3f6;
+    border: 1px solid #dde3ea;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-family: "Consolas", monospace;
+    font-size: 10pt;
+    color: #a4262c;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 8px 0 16px 0;
+    font-size: 10pt;
+    page-break-inside: auto;
+  }
+  tr { page-break-inside: avoid; }
+  th, td {
+    border: 1px solid #d3dae3;
+    padding: 6px 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: #2b6cb0; color: #fff; }
+  tr:nth-child(even) td { background: #f7fafd; }
+  .prompt {
+    background: #fff8e6;
+    border-left: 4px solid #e2a63c;
+    padding: 6px 10px;
+    margin: 4px 0 10px 0;
+    font-style: italic;
+    font-size: 10pt;
+  }
+  .pipeline {
+    background: #0f2a4a;
+    color: #eaf2fb;
+    font-family: "Consolas", monospace;
+    font-size: 10pt;
+    padding: 14px 18px;
+    border-radius: 6px;
+    white-space: pre;
+    margin: 10px 0 20px 0;
+  }
+  .tip-box {
+    background: #eafaf0;
+    border: 1px solid #b7e4c7;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 14px 0;
+  }
+  .tip-box ol { margin: 6px 0 0 18px; padding: 0; }
+  ul { margin-top: 4px; }
+  .footer {
+    margin-top: 30px;
+    font-size: 9pt;
+    color: #888;
+    border-top: 1px solid #ddd;
+    padding-top: 8px;
+  }
+  .stage-tag {
+    display: inline-block;
+    background: #2b6cb0;
+    color: #fff;
+    border-radius: 4px;
+    padding: 1px 8px;
+    font-size: 9.5pt;
+    margin-right: 6px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Hướng dẫn đặt prompt để sản xuất phần mềm đúng quy trình SDLC</h1>
+<p class="subtitle">Dựa trên bộ 45 agent &amp; skill plugin <code>developer</code> — dev-quality-toolkit · Cập nhật 2026-10-08</p>
+
+<h2>0. Nguyên tắc chung khi đặt prompt</h2>
+<div class="tip-box">
+<ol>
+  <li><b>Một prompt — một agent, một việc.</b> Nếu công việc trải nhiều giai đoạn (vd. "làm rõ yêu cầu rồi thiết kế luôn"), tách thành nhiều lượt hỏi tuần tự, đừng gộp vào một câu.</li>
+  <li><b>Nêu rõ trạng thái hiện tại</b> — "chưa có code", "kiến trúc đã chốt chưa", "migration đã viết ra chưa". Đây là trục Claude Code dùng để chọn đúng agent giữa các cặp dễ nhầm (vd. <code>threat-modeler</code> trước code vs <code>security-auditor</code> sau code đã viết).</li>
+  <li><b>Nêu rõ file/module cụ thể</b> thay vì mô tả chung chung — "review giúp file <code>order.py</code>" tốt hơn "review code giúp".</li>
+  <li><b>Phần lớn agent ở giai đoạn Thiết kế/Kiểm thử/Vận hành chỉ phân tích &amp; báo cáo</b>, không tự sửa file — nếu cần hành động, nối thêm yêu cầu dùng agent có quyền Write/Edit tương ứng.</li>
+  <li><b>Không chắc nên dùng agent nào?</b> Gọi <code>/developer:agent-advisor</code> kèm mô tả việc — nó đọc trực tiếp <code>plugin.json</code> để tư vấn đúng theo hiện trạng repo.</li>
+</ol>
+</div>
+
+<h2>1. Tổng quan pipeline 6 giai đoạn</h2>
+<div class="pipeline">1. Thu thập &amp; Phân tích yêu cầu
+        │
+        ▼
+2. Thiết kế (kiến trúc, API, dữ liệu, UI, bảo mật)
+        │
+        ▼
+3. Phát triển (coding)  ──────┐
+        │                     │  (lặp lại mỗi sprint/iteration)
+        ▼                     │
+4. Kiểm thử (testing)  ───────┘
+        │
+        ▼
+5. Triển khai (deployment)
+        │
+        ▼
+6. Vận hành &amp; Bảo trì (operations &amp; maintenance)</div>
+<p>Phần mềm hiện đại hiếm khi đi qua 6 giai đoạn này một lần rồi kết thúc — đây là một vòng lặp: mỗi tính năng mới, mỗi bản sửa lỗi đều đi qua lại từ bước 2 đến bước 6.</p>
+
+<h2>2. Giai đoạn 1 — Thu thập &amp; Phân tích yêu cầu</h2>
+<table>
+<tr><th>Tình huống</th><th>Agent</th></tr>
+<tr><td>Yêu cầu nghiệp vụ còn mơ hồ, cần user story + acceptance criteria</td><td><code>requirements-analyst</code></td></tr>
+<tr><td>Yêu cầu đã rõ, cần văn bản hóa thành SRS chính thức</td><td><code>srs-writer</code></td></tr>
+</table>
+<div class="prompt">"Sếp tôi muốn có tính năng 'thông báo cho khách hàng khi đơn hàng có vấn đề' nhưng nói còn rất mơ hồ, giúp tôi làm rõ thành user story."</div>
+<div class="prompt">"requirements-analyst đã làm rõ xong yêu cầu export đơn hàng ra CSV, giúp tôi viết thành tài liệu SRS chính thức."</div>
+
+<h2>3. Giai đoạn 2 — Thiết kế</h2>
+<table>
+<tr><th>Tình huống</th><th>Agent</th></tr>
+<tr><td>Kiến trúc <b>chưa chốt</b>, cần so sánh phương án + trade-off</td><td><code>system-architect</code></td></tr>
+<tr><td>Kiến trúc <b>đã chốt</b>, cần tài liệu hóa High-Level Design</td><td><code>high-level-designer</code></td></tr>
+<tr><td>Đã có HLD, cần chi tiết hóa class/sequence/pseudocode</td><td><code>low-level-designer</code></td></tr>
+<tr><td>Thiết kế endpoint REST/GraphQL mới</td><td><code>api-designer</code></td></tr>
+<tr><td>Thiết kế ERD mới (chưa có migration nào)</td><td><code>data-modeler</code></td></tr>
+<tr><td>Review migration/schema <b>đã viết ra</b></td><td><code>db-schema-reviewer</code></td></tr>
+<tr><td>Đặc tả wireframe/luồng màn hình trước khi code UI</td><td><code>ui-ux-designer</code></td></tr>
+<tr><td>Threat modeling (STRIDE) trước khi có code</td><td><code>threat-modeler</code></td></tr>
+<tr><td>Ghi lại quyết định kiến trúc đã chốt</td><td><code>adr-writer</code></td></tr>
+<tr><td>Đánh giá PoC/spike đã thực hiện, viết PoC report</td><td><code>poc-evaluator</code></td></tr>
+<tr><td>Ước lượng effort (person-day) cho yêu cầu đã rõ</td><td><code>project-estimator</code></td></tr>
+<tr><td>Dựng Work Breakdown Structure từ effort đã có</td><td><code>wbs-writer</code></td></tr>
+<tr><td>Soạn Test Plan trước khi viết test case thật</td><td><code>test-plan-writer</code></td></tr>
+</table>
+<div class="prompt">"Lên kế hoạch triển khai tính năng thông báo real-time, cân nhắc WebSocket hay polling." → system-architect</div>
+<div class="prompt">"HLD đã chốt dùng message queue cho luồng xử lý đơn hàng, giúp thiết kế chi tiết class/sequence cho module OrderProcessor." → low-level-designer</div>
+<div class="prompt">"Trước khi code, giúp tôi threat model luồng thanh toán mới: client gọi API tạo order, service order gọi service payment qua message queue." → threat-modeler</div>
+
+<h2>4. Giai đoạn 3 — Phát triển (Coding)</h2>
+<table>
+<tr><th>Tình huống</th><th>Agent</th></tr>
+<tr><td>Review commit/diff Android (Kotlin/Java/Compose)</td><td><code>android-commit-reviewer</code></td></tr>
+<tr><td>Review commit/diff Qt/C++</td><td><code>qt-cpp-commit-reviewer</code></td></tr>
+<tr><td>Review code Python (PEP8 + bảo mật OWASP)</td><td><code>python-pep8-security-reviewer</code></td></tr>
+<tr><td>Đánh giá kiến trúc code hiện có (coupling, SOLID)</td><td><code>architecture-reviewer</code></td></tr>
+<tr><td>Refactor an toàn, không đổi hành vi</td><td><code>refactor-assistant</code></td></tr>
+<tr><td>Viết unit test cho code hiện có</td><td><code>test-writer</code></td></tr>
+<tr><td>Rà soát package bên thứ 3 (CVE, license, lỗi thời)</td><td><code>dependency-auditor</code></td></tr>
+<tr><td>Nâng cấp version package/framework cụ thể</td><td><code>dependency-upgrader</code></td></tr>
+<tr><td>Quét &amp; ưu tiên hóa nợ kỹ thuật toàn repo</td><td><code>tech-debt-tracker</code></td></tr>
+<tr><td>Sinh/cập nhật tài liệu API từ code (OpenAPI, docstring)</td><td><code>api-doc-generator</code></td></tr>
+<tr><td>Viết commit message theo convention rồi commit</td><td>skill <code>/developer:commit</code></td></tr>
+<tr><td>Viết mô tả Pull Request từ diff</td><td><code>pr-description-writer</code></td></tr>
+</table>
+<div class="prompt">"Review giúp commit vừa rồi sửa màn hình login bằng Kotlin coroutine." → android-commit-reviewer</div>
+<div class="prompt">"Refactor giúp function xử lý đơn hàng trong order.py đang quá dài và lồng nhau nhiều if." → refactor-assistant</div>
+
+<h2>5. Giai đoạn 4 — Kiểm thử</h2>
+<table>
+<tr><th>Tình huống</th><th>Agent</th></tr>
+<tr><td>Viết/chạy integration hoặc E2E test</td><td><code>e2e-test-runner</code></td></tr>
+<tr><td>Phân tích coverage, tìm vùng thiếu test cần ưu tiên</td><td><code>test-coverage-analyzer</code></td></tr>
+<tr><td>Test lúc pass lúc fail (flaky), cần tìm nguyên nhân gốc</td><td><code>flaky-test-detector</code></td></tr>
+<tr><td>Audit lỗ hổng bảo mật trong code đã viết</td><td><code>security-auditor</code></td></tr>
+<tr><td>Profile hiệu năng: bottleneck, N+1 query, memory leak</td><td><code>performance-profiler</code></td></tr>
+</table>
+<div class="prompt">"Viết integration test cho API tạo đơn hàng, cần test cả trường hợp kho hết hàng." → e2e-test-runner</div>
+
+<h2>6. Giai đoạn 5 — Triển khai</h2>
+<table>
+<tr><th>Tình huống</th><th>Agent</th></tr>
+<tr><td>Tối ưu Dockerfile (size, cache, bảo mật)</td><td><code>docker-optimizer</code></td></tr>
+<tr><td>Review Terraform/K8s/Helm trước khi apply</td><td><code>iac-reviewer</code></td></tr>
+<tr><td>Chẩn đoán &amp; sửa pipeline CI đang fail</td><td><code>ci-fixer</code></td></tr>
+<tr><td>Kiểm tra cấu hình pre-flight trước khi deploy</td><td><code>deployment-validator</code></td></tr>
+<tr><td>Checklist go/no-go + kế hoạch rollback cho 1 release</td><td><code>release-manager</code></td></tr>
+</table>
+<div class="prompt">"Kiểm tra giúp cấu hình trước khi deploy service payment lên staging." → deployment-validator</div>
+
+<h2>7. Giai đoạn 6 — Vận hành &amp; Bảo trì</h2>
+<table>
+<tr><th>Tình huống</th><th>Agent</th></tr>
+<tr><td>Sự cố production <b>đang diễn ra</b> ngay bây giờ</td><td><code>incident-commander</code></td></tr>
+<tr><td>Cần tìm pattern bất thường trên tập log diện rộng</td><td><code>log-analyzer</code></td></tr>
+<tr><td>Đã có stack trace/bug report cụ thể, cần truy nguyên nhân gốc</td><td><code>root-cause-analyzer</code></td></tr>
+<tr><td>Tổng hợp CHANGELOG giữa 2 mốc release</td><td><code>changelog-writer</code></td></tr>
+<tr><td>Giải thích codebase cho thành viên mới</td><td><code>onboarding-guide</code></td></tr>
+<tr><td>Review chất lượng tài liệu Markdown/README</td><td><code>docs-reviewer</code></td></tr>
+<tr><td>Viết mới/cập nhật README, hướng dẫn cài đặt</td><td><code>doc-writer</code></td></tr>
+</table>
+<div class="prompt">"Production đang down, error rate tăng vọt 5 phút trước, giúp tôi xác định mức độ nghiêm trọng và việc cần làm ngay." → incident-commander</div>
+
+<h2>8. Hoạt động xuyên suốt toàn bộ quy trình</h2>
+<table>
+<tr><th>Việc cần làm</th><th>Agent / Skill</th></tr>
+<tr><td>Điều phối reviewer theo stack, gộp checklist PASS/WARN/FAIL trước merge</td><td>skill <code>/developer:pre-merge</code></td></tr>
+<tr><td>Đối chiếu dự án/tính năng với checklist quality gate (ADR, test, security audit, changelog...)</td><td><code>qms-compliance-checker</code></td></tr>
+<tr><td>Nối từng ID yêu cầu với thiết kế/code/PR/test case (RTM)</td><td><code>rtm-manager</code></td></tr>
+<tr><td>Tư vấn nên dùng agent nào cho một việc cụ thể</td><td>skill <code>/developer:agent-advisor</code></td></tr>
+</table>
+
+<h2>9. Tóm tắt nhanh — chọn công cụ theo tình huống</h2>
+<table>
+<tr><th>Tôi đang...</th><th>Nên dùng</th></tr>
+<tr><td>Lên kế hoạch cho một tính năng lớn chưa có</td><td><code>system-architect</code></td></tr>
+<tr><td>Chuẩn bị merge một PR</td><td>agent review theo stack + <code>pr-description-writer</code></td></tr>
+<tr><td>Code chạy chậm hoặc nghi ngờ leak</td><td><code>performance-profiler</code></td></tr>
+<tr><td>Nghi ngờ lỗ hổng bảo mật trong code đã viết</td><td><code>security-auditor</code></td></tr>
+<tr><td>Cần soát rủi ro bảo mật TRƯỚC khi code</td><td><code>threat-modeler</code></td></tr>
+<tr><td>Cần số effort cụ thể cho yêu cầu đã rõ</td><td><code>project-estimator</code></td></tr>
+<tr><td>Chuẩn bị release</td><td><code>changelog-writer</code> → <code>release-manager</code> → <code>deployment-validator</code></td></tr>
+<tr><td>Production đang down NGAY BÂY GIỜ</td><td><code>incident-commander</code></td></tr>
+<tr><td>Production ổn định, cần tìm nguyên nhân gốc</td><td><code>log-analyzer</code> → <code>root-cause-analyzer</code></td></tr>
+<tr><td>Codebase nhiều nợ kỹ thuật, không biết bắt đầu từ đâu</td><td><code>tech-debt-tracker</code></td></tr>
+<tr><td>Thành viên mới cần hiểu dự án</td><td><code>onboarding-guide</code></td></tr>
+<tr><td>Yêu cầu nghiệp vụ còn mơ hồ</td><td><code>requirements-analyst</code></td></tr>
+<tr><td>Kiểm tra tính năng đã đủ hồ sơ chất lượng chưa</td><td><code>qms-compliance-checker</code></td></tr>
+</table>
+
+<div class="footer">
+Nguồn: plugin <code>developer</code> v0.4.0 — dev-quality-toolkit · Tài liệu gốc: <code>SDLC/QUY_TRINH_SAN_XUAT_PHAN_MEM.md</code>, <code>SDLC/DANH_SACH_AI_AGENT_VA_VI_DU_PROMPT.md</code>
+</div>
+
+</body>
+</html>
