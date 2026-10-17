@@ -11,7 +11,7 @@ sản phẩm gì, và khi nào thì được coi là xong để chuyển sang b�
 
 | Tài liệu | Dùng để |
 |---|---|
-| [`QUY_TRINH_SAN_XUAT_PHAN_MEM.md`](./QUY_TRINH_SAN_XUAT_PHAN_MEM.md) | Tổng quan mô hình SDLC thế giới, FSoft, và 6 giai đoạn |
+| [`QUY_TRINH_SAN_XUAT_PHAN_MEM.md`](./QUY_TRINH_SAN_XUAT_PHAN_MEM.md) | Tổng quan mô hình SDLC thế giới, FSoft, và 7 giai đoạn |
 | [`SO_SANH_SDLC_THE_GIOI_FSOFT.md`](./SO_SANH_SDLC_THE_GIOI_FSOFT.md) | So sánh SDLC chuẩn thế giới với quy trình FSoft |
 | [`THUAT_NGU_SDLC.md`](./THUAT_NGU_SDLC.md) | Tra cứu thuật ngữ, từ viết tắt (SRS, WBS, RTM, UAT...) |
 | [`DANH_SACH_AI_AGENT_VA_VI_DU_PROMPT.md`](./DANH_SACH_AI_AGENT_VA_VI_DU_PROMPT.md) | Danh sách agent và prompt mẫu |
@@ -25,17 +25,26 @@ sản phẩm gì, và khi nào thì được coi là xong để chuyển sang b�
   - [2. Vai trò và trách nhiệm](#2-vai-trò-và-trách-nhiệm)
   - [3. Sơ đồ quy trình và các cổng chất lượng](#3-sơ-đồ-quy-trình-và-các-cổng-chất-lượng)
 - [Phần II — Các giai đoạn chi tiết](#phần-ii--các-giai-đoạn-chi-tiết)
-  - [Giai đoạn 0 — Khởi tạo & lập kế hoạch dự án](#giai-đoạn-0--khởi-tạo--lập-kế-hoạch-dự-án)
-  - [Giai đoạn 1 — Thu thập & phân tích yêu cầu](#giai-đoạn-1--thu-thập--phân-tích-yêu-cầu)
-  - [Giai đoạn 2 — Thiết kế](#giai-đoạn-2--thiết-kế)
-  - [Giai đoạn 3 — Phát triển](#giai-đoạn-3--phát-triển)
-  - [Giai đoạn 4 — Kiểm thử](#giai-đoạn-4--kiểm-thử)
-  - [Giai đoạn 5 — Phát hành & triển khai](#giai-đoạn-5--phát-hành--triển-khai)
-  - [Giai đoạn 6 — Vận hành & bảo trì](#giai-đoạn-6--vận-hành--bảo-trì)
-  - [Giai đoạn 7 — Đóng dự án](#giai-đoạn-7--đóng-dự-án)
+  - [Giai đoạn 1 — Discovery & Planning (Khởi tạo & lập kế hoạch dự án)](#giai-đoạn-1--discovery--planning-khởi-tạo--lập-kế-hoạch-dự-án)
+  - [Giai đoạn 2 — Requirements Analysis (Thu thập & phân tích yêu cầu)](#giai-đoạn-2--requirements-analysis-thu-thập--phân-tích-yêu-cầu)
+  - [Giai đoạn 3 — Architecture & Design (Thiết kế)](#giai-đoạn-3--architecture--design-thiết-kế)
+  - [Giai đoạn 4 — Implementation (Phát triển)](#giai-đoạn-4--implementation-phát-triển)
+  - [Giai đoạn 5 — Verification & Testing (Kiểm thử)](#giai-đoạn-5--verification--testing-kiểm-thử)
+  - [Giai đoạn 6 — Release & Deployment (Phát hành & triển khai)](#giai-đoạn-6--release--deployment-phát-hành--triển-khai)
+  - [Giai đoạn 7 — Operation & Maintenance (Vận hành & bảo trì)](#giai-đoạn-7--operation--maintenance-vận-hành--bảo-trì)
+  - [Phụ lục — Đóng dự án (ngoài khung 7 giai đoạn)](#phụ-lục--đóng-dự-án-ngoài-khung-7-giai-đoạn)
 - [Phần III — Các quy trình hỗ trợ xuyên suốt](#phần-iii--các-quy-trình-hỗ-trợ-xuyên-suốt)
 - [Phần IV — Áp dụng theo mô hình dự án](#phần-iv--áp-dụng-theo-mô-hình-dự-án)
 - [Phần V — Danh mục tài liệu, template và checklist](#phần-v--danh-mục-tài-liệu-template-và-checklist)
+
+> **Lưu ý về đánh số:** tài liệu này dùng khung **7 giai đoạn** (đồng bộ với
+> [`QUY_TRINH_SAN_XUAT_PHAN_MEM.md`](./QUY_TRINH_SAN_XUAT_PHAN_MEM.md)), cộng
+> thêm một mục Phụ lục "Đóng dự án" cho dự án có mốc kết thúc rõ ràng (fix-
+> price/outsourcing) — mục này nằm ngoài vòng lặp 7 giai đoạn lặp lại theo
+> từng tính năng/release. Mã **gate (G0–G7)** giữ nguyên như bản gốc và
+> KHÔNG đổi theo số giai đoạn mới (ví dụ G0 vẫn là gate cuối giai đoạn 1 mới,
+> G7 vẫn là gate của Phụ lục) — tra `Giai đoạn N` theo tên mới, tra `Gate GN`
+> theo đúng ký hiệu đã dùng trong toàn tài liệu.
 
 ---
 
@@ -146,38 +155,39 @@ kiến), **I** = Informed (được thông báo).
 ### 3.1. Sơ đồ tổng thể
 
 ```
- ┌───────────────────────┐
- │ 0. Khởi tạo & Kế hoạch │──[G0: Phê duyệt khởi động dự án]
- └───────────┬───────────┘
-             ▼
- ┌───────────────────────┐
- │ 1. Yêu cầu             │──[G1: Baseline yêu cầu (SRS/Backlog)]
- └───────────┬───────────┘
-             ▼
- ┌───────────────────────┐
- │ 2. Thiết kế (HLD→LLD)  │──[G2: Baseline thiết kế]
- └───────────┬───────────┘
-             ▼
- ┌───────────────────────┐  ◄── lặp theo sprint/iteration ──┐
- │ 3. Phát triển          │──[G3: Code complete]              │
- └───────────┬───────────┘                                    │
-             ▼                                                │
- ┌───────────────────────┐                                    │
- │ 4. Kiểm thử            │──[G4: Test exit / sẵn sàng UAT] ───┘
- └───────────┬───────────┘
-             ▼
- ┌───────────────────────┐
- │ 5. Phát hành & Triển   │──[G5: Go/No-go]──[G6: Go-live xác nhận]
- │    khai (gồm UAT)      │
- └───────────┬───────────┘
-             ▼
- ┌───────────────────────┐
- │ 6. Vận hành & Bảo trì  │──► yêu cầu mới / bug ──► quay lại 1 hoặc 3
- └───────────┬───────────┘
-             ▼
- ┌───────────────────────┐
- │ 7. Đóng dự án          │──[G7: Nghiệm thu & đóng dự án]
- └───────────────────────┘
+ ┌───────────────────────────┐
+ │ 1. Discovery & Planning    │──[G0: Phê duyệt khởi động dự án]
+ └─────────────┬──────────────┘
+               ▼
+ ┌───────────────────────────┐
+ │ 2. Requirements Analysis   │──[G1: Baseline yêu cầu (SRS/Backlog)]
+ └─────────────┬──────────────┘
+               ▼
+ ┌───────────────────────────┐
+ │ 3. Architecture & Design   │──[G2: Baseline thiết kế]
+ │    (HLD→LLD)                │
+ └─────────────┬──────────────┘
+               ▼
+ ┌───────────────────────────┐  ◄── lặp theo sprint/iteration ──┐
+ │ 4. Implementation           │──[G3: Code complete]              │
+ └─────────────┬──────────────┘                                    │
+               ▼                                                  │
+ ┌───────────────────────────┐                                    │
+ │ 5. Verification & Testing  │──[G4: Test exit / sẵn sàng UAT] ───┘
+ └─────────────┬──────────────┘
+               ▼
+ ┌───────────────────────────┐
+ │ 6. Release & Deployment    │──[G5: Go/No-go]──[G6: Go-live xác nhận]
+ │    (gồm UAT)                │
+ └─────────────┬──────────────┘
+               ▼
+ ┌───────────────────────────┐
+ │ 7. Operation & Maintenance │──► yêu cầu mới / bug ──► quay lại giai đoạn 2 hoặc 4
+ └─────────────┬──────────────┘
+               ▼
+ ┌───────────────────────────┐
+ │ Phụ lục. Đóng dự án         │──[G7: Nghiệm thu & đóng dự án]
+ └───────────────────────────┘
 
  Xuyên suốt: Quản lý dự án · Quản lý cấu hình · Quản lý thay đổi ·
              Quản lý rủi ro · Quản lý defect · Review · Đo lường · Audit SQA
@@ -189,25 +199,27 @@ Mỗi gate là một **điểm quyết định chính thức**: chỉ đi tiếp
 chí đạt, hoặc khi người có thẩm quyền chấp nhận rủi ro **bằng văn bản** (ghi
 rõ tiêu chí nào chưa đạt, lý do, kế hoạch khắc phục).
 
-| Gate | Thời điểm | Người phê duyệt | Tiêu chí chính | Agent hỗ trợ kiểm tra |
+| Gate | Thời điểm | Người phê duyệt | Tiêu chí chính | Agent/skill hỗ trợ kiểm tra |
 |---|---|---|---|---|
-| **G0** | Cuối giai đoạn 0 | Ban lãnh đạo / Sponsor | Có hợp đồng/SOW, kế hoạch dự án, nguồn lực, rủi ro ban đầu | — |
-| **G1** | Cuối giai đoạn 1 | KH + PM | SRS/Backlog đã review, KH ký duyệt, RTM khởi tạo | `requirements-analyst` |
-| **G2** | Cuối giai đoạn 2 | SA + PM (+ KH nếu hợp đồng yêu cầu) | HLD/LLD đã review, ADR cho quyết định lớn, threat model, Test Plan | `qms-compliance-checker`, `threat-modeler` |
-| **G3** | Cuối giai đoạn 3 | TL | Code đã review và merge, unit test đạt ngưỡng, CI xanh | các reviewer theo stack, `test-coverage-analyzer` |
-| **G4** | Cuối giai đoạn 4 | Test Lead + PM | Test case đã chạy đủ, không còn defect Critical/High mở, báo cáo test | `qms-compliance-checker` |
-| **G5** | Trước triển khai production | PM (+ KH) | UAT đạt, release note, kế hoạch rollback, pre-flight check đạt | `release-manager`, `deployment-validator` |
-| **G6** | Sau triển khai | PM + OPS | Smoke test production đạt, monitoring bình thường trong thời gian theo dõi | `log-analyzer` |
-| **G7** | Kết thúc dự án | Sponsor + KH | Biên bản nghiệm thu, bàn giao đủ tài liệu, báo cáo đóng dự án | `qms-compliance-checker` |
+| **G0** | Cuối giai đoạn 1 (Discovery & Planning) | Ban lãnh đạo / Sponsor | Có hợp đồng/SOW, kế hoạch dự án, nguồn lực, rủi ro ban đầu | `/developer:discovery-planning` |
+| **G1** | Cuối giai đoạn 2 (Requirements Analysis) | KH + PM | SRS/Backlog đã review, KH ký duyệt, RTM khởi tạo | `requirements-analyst`, `/developer:requirements-analysis` |
+| **G2** | Cuối giai đoạn 3 (Architecture & Design) | SA + PM (+ KH nếu hợp đồng yêu cầu) | HLD/LLD đã review, ADR cho quyết định lớn, threat model, Test Plan | `qms-compliance-checker`, `threat-modeler`, `/developer:architecture-design` |
+| **G3** | Cuối giai đoạn 4 (Implementation) | TL | Code đã review và merge, unit test đạt ngưỡng, CI xanh | các reviewer theo stack, `test-coverage-analyzer`, `/developer:pre-merge` |
+| **G4** | Cuối giai đoạn 5 (Verification & Testing) | Test Lead + PM | Test case đã chạy đủ, không còn defect Critical/High mở, báo cáo test | `qms-compliance-checker`, `/developer:verification-testing` |
+| **G5** | Trước triển khai production (trong giai đoạn 6) | PM (+ KH) | UAT đạt, release note, kế hoạch rollback, pre-flight check đạt | `release-manager`, `deployment-validator`, `/developer:release-deployment` |
+| **G6** | Sau triển khai (chuyển sang giai đoạn 7) | PM + OPS | Smoke test production đạt, monitoring bình thường trong thời gian theo dõi | `log-analyzer`, `/developer:operation-maintenance` |
+| **G7** | Kết thúc dự án (Phụ lục — Đóng dự án) | Sponsor + KH | Biên bản nghiệm thu, bàn giao đủ tài liệu, báo cáo đóng dự án | `qms-compliance-checker` |
 
 ---
 
 # Phần II — Các giai đoạn chi tiết
 
-## Giai đoạn 0 — Khởi tạo & lập kế hoạch dự án
+## Giai đoạn 1 — Discovery & Planning (Khởi tạo & lập kế hoạch dự án)
 
 **Mục tiêu:** Xác định dự án có nên làm không, làm trong phạm vi nào, với
 nguồn lực/ngân sách/thời gian nào, và cách quản lý ra sao.
+
+**Skill điều phối:** `/developer:discovery-planning`
 
 ### E — Điều kiện vào
 - Có đề nghị/yêu cầu dự án từ khách hàng hoặc nội bộ (RFP, ý tưởng sản
@@ -276,11 +288,13 @@ thúc dự kiến từng milestone (làm baseline để đo schedule variance v�
 
 ---
 
-## Giai đoạn 1 — Thu thập & phân tích yêu cầu
+## Giai đoạn 2 — Requirements Analysis (Thu thập & phân tích yêu cầu)
 
 **Mục tiêu:** Hiểu đúng, đủ và thống nhất với khách hàng về việc hệ thống
 **phải làm gì** (yêu cầu chức năng) và **phải đạt chất lượng thế nào** (yêu
 cầu phi chức năng), trước khi thiết kế.
+
+**Skill điều phối:** `/developer:requirements-analysis`
 
 ### E — Điều kiện vào
 - Gate G0 đã qua.
@@ -351,11 +365,13 @@ glossary nghiệp vụ, RTM, review record, biên bản xác nhận yêu cầu.
 
 ---
 
-## Giai đoạn 2 — Thiết kế
+## Giai đoạn 3 — Architecture & Design (Thiết kế)
 
 **Mục tiêu:** Chuyển yêu cầu đã baseline thành giải pháp kỹ thuật: kiến
 trúc tổng thể (HLD), thiết kế chi tiết từng module (LLD), API contract, mô
 hình dữ liệu, thiết kế bảo mật — đủ để developer code mà không phải tự đoán.
+
+**Skill điều phối:** `/developer:architecture-design`
 
 Giai đoạn này chia làm 3 bước con theo thứ tự: **2A. Kiến trúc & HLD** →
 **2B. Thiết kế chi tiết (LLD, API, DB)** → **2C. Lập kế hoạch kiểm thử**
@@ -463,10 +479,13 @@ Số lỗi tìm được khi review thiết kế, effort thiết kế thực t�
 
 ---
 
-## Giai đoạn 3 — Phát triển
+## Giai đoạn 4 — Implementation (Phát triển)
 
 **Mục tiêu:** Hiện thực hóa thiết kế thành code chạy được, đúng chuẩn, có
 test bảo vệ, đã qua review, và tích hợp liên tục vào nhánh chính.
+
+**Skill điều phối:** `/developer:implementation` (phản hồi nhanh trong lúc
+code) — khi sắp merge, dùng `/developer:pre-merge` làm cổng kiểm tra cuối.
 
 ### E — Điều kiện vào
 - Gate G2 đã qua cho phạm vi sắp code (hoặc story đã đạt **Definition of
@@ -546,12 +565,14 @@ báo cáo CI (test, coverage, scan), RTM cập nhật.
 
 ---
 
-## Giai đoạn 4 — Kiểm thử
+## Giai đoạn 5 — Verification & Testing (Kiểm thử)
 
 **Mục tiêu:** Xác minh (verification — làm **đúng** thiết kế) và xác nhận
 (validation — làm **đúng thứ khách hàng cần**) phần mềm; phát hiện lỗi trước
 khi tới người dùng; cung cấp thông tin khách quan về chất lượng để ra quyết
 định phát hành.
+
+**Skill điều phối:** `/developer:verification-testing`
 
 ### Các cấp độ kiểm thử (V-Model)
 
@@ -655,10 +676,12 @@ defect log, Test Summary Report, RTM hoàn chỉnh.
 
 ---
 
-## Giai đoạn 5 — Phát hành & triển khai
+## Giai đoạn 6 — Release & Deployment (Phát hành & triển khai)
 
 **Mục tiêu:** Đưa bản phần mềm đã kiểm thử vào production một cách an toàn,
 có kiểm soát, có khả năng quay lui, và được khách hàng chấp nhận.
+
+**Skill điều phối:** `/developer:release-deployment`
 
 ### E — Điều kiện vào
 - Gate G4 đã qua.
@@ -749,10 +772,12 @@ gian từ commit tới production (lead time), số defect phát hiện trong UA
 
 ---
 
-## Giai đoạn 6 — Vận hành & bảo trì
+## Giai đoạn 7 — Operation & Maintenance (Vận hành & bảo trì)
 
 **Mục tiêu:** Giữ hệ thống chạy ổn định theo SLA/SLO, xử lý sự cố nhanh và
 đúng nguyên nhân gốc, tiếp tục cải tiến phần mềm.
+
+**Skill điều phối:** `/developer:operation-maintenance`
 
 ### Các loại bảo trì
 
@@ -763,7 +788,7 @@ gian từ commit tới production (lead time), số defect phát hiện trong UA
 | Perfective (hoàn thiện) | Cải thiện hiệu năng, khả năng bảo trì, thêm tính năng nhỏ | Tối ưu query, refactor |
 | Preventive (phòng ngừa) | Xử lý vấn đề tiềm ẩn trước khi gây lỗi | Trả nợ kỹ thuật, vá CVE, gia hạn chứng chỉ |
 
-Mọi thay đổi trong giai đoạn bảo trì vẫn đi lại các giai đoạn 1→5 ở quy mô
+Mọi thay đổi trong giai đoạn bảo trì vẫn đi lại các giai đoạn 2→6 ở quy mô
 nhỏ (yêu cầu → thiết kế nếu cần → code → test → release). **Hotfix** được
 rút gọn quy trình nhưng **không được bỏ** code review, test hồi quy vùng ảnh
 hưởng và ghi nhận.
@@ -828,7 +853,12 @@ Uptime theo SLO, MTTD, MTTR, số sự cố theo severity, tỷ lệ sự cố l
 
 ---
 
-## Giai đoạn 7 — Đóng dự án
+## Phụ lục — Đóng dự án (ngoài khung 7 giai đoạn)
+
+> Mục này nằm **ngoài** vòng lặp 7 giai đoạn (giai đoạn 1-7 lặp lại theo từng
+> tính năng/release); nó chỉ áp dụng một lần khi dự án có mốc **kết thúc
+> chính thức** (phổ biến ở dự án fix-price/outsourcing). Dự án vận hành liên
+> tục, không có mốc đóng (ví dụ sản phẩm SaaS nội bộ) có thể bỏ qua mục này.
 
 **Mục tiêu:** Kết thúc dự án (hoặc một giai đoạn hợp đồng) có kiểm soát:
 nghiệm thu, bàn giao đầy đủ, tổng kết số liệu và bài học để tổ chức làm
@@ -931,7 +961,7 @@ môi trường, IaC, test case.
                                                              ▼
                                          Cập nhật baseline (SRS, thiết kế, kế hoạch, RTM)
                                                              ▼
-                                         Thực hiện qua các giai đoạn 2→5
+                                         Thực hiện qua các giai đoạn 3→6
                                                              ▼
                                               Xác minh và đóng CR
 ```
@@ -1078,7 +1108,7 @@ triển khai production, xác nhận yêu cầu với khách hàng.
 
 ## 18. Áp dụng theo V-Model / Waterfall
 
-- Các giai đoạn 1→5 diễn ra **tuần tự**, mỗi giai đoạn kết thúc bằng gate
+- Các giai đoạn 2→6 diễn ra **tuần tự**, mỗi giai đoạn kết thúc bằng gate
   chính thức; thường KH nghiệm thu tài liệu tại G1, G2.
 - Kế hoạch kiểm thử từng cấp được lập **song song** với giai đoạn phát triển
   tương ứng (xem sơ đồ ở [sơ đồ cấp độ kiểm thử](#các-cấp-độ-kiểm-thử-v-model)): Kế hoạch
@@ -1094,14 +1124,14 @@ triển khai production, xác nhận yêu cầu với khách hàng.
 
 | Giai đoạn trong tài liệu này | Tương ứng trong Scrum |
 |---|---|
-| 0. Khởi tạo & kế hoạch | Sprint 0 / Inception: tầm nhìn sản phẩm, backlog ban đầu, kiến trúc nền, môi trường, Definition of Done |
-| 1. Yêu cầu | Product Backlog Refinement liên tục; story đạt DoR mới vào sprint |
-| 2. Thiết kế | Kiến trúc nền ở Sprint 0; thiết kế chi tiết "vừa đủ" trong refinement và đầu mỗi story |
-| 3. Phát triển + 4. Kiểm thử | Trong sprint: dev và test song song, tester là thành viên team; story chỉ "Done" khi đạt DoD |
+| 1. Discovery & Planning | Sprint 0 / Inception: tầm nhìn sản phẩm, backlog ban đầu, kiến trúc nền, môi trường, Definition of Done |
+| 2. Requirements Analysis | Product Backlog Refinement liên tục; story đạt DoR mới vào sprint |
+| 3. Architecture & Design | Kiến trúc nền ở Sprint 0; thiết kế chi tiết "vừa đủ" trong refinement và đầu mỗi story |
+| 4. Implementation + 5. Verification & Testing | Trong sprint: dev và test song song, tester là thành viên team; story chỉ "Done" khi đạt DoD |
 | Gate G3/G4 | Definition of Done ở cấp story + Sprint Review |
-| 5. Phát hành | Release sau một hoặc nhiều sprint (hoặc liên tục với CD); UAT có thể là Sprint Review với KH + UAT trước release lớn |
-| 6. Vận hành | Bug production vào backlog với độ ưu tiên; sự cố SEV1/SEV2 xử lý ngay, không chờ sprint |
-| 7. Đóng dự án / cải tiến | Sprint Retrospective (cải tiến liên tục) + tổng kết khi kết thúc dự án |
+| 6. Release & Deployment | Release sau một hoặc nhiều sprint (hoặc liên tục với CD); UAT có thể là Sprint Review với KH + UAT trước release lớn |
+| 7. Operation & Maintenance | Bug production vào backlog với độ ưu tiên; sự cố SEV1/SEV2 xử lý ngay, không chờ sprint |
+| Phụ lục. Đóng dự án / cải tiến | Sprint Retrospective (cải tiến liên tục) + tổng kết khi kết thúc dự án |
 
 **Các sự kiện Scrum:**
 
@@ -1143,29 +1173,29 @@ hình thức ghi nhận, không bỏ bản chất.
 
 | Tài liệu | Giai đoạn | Người lập | Người duyệt | Bắt buộc với |
 |---|---|---|---|---|
-| SOW / Hợp đồng | 0 | PM | KH, lãnh đạo | Tất cả |
-| Project Plan | 0 | PM | Lãnh đạo, SQA | Tất cả (dự án nhỏ: rút gọn) |
-| WBS, lịch dự án | 0 | PM, TL | PM | Vừa, lớn |
-| Risk Register | 0 → 7 | PM | — | Tất cả |
-| CM Plan | 0 | CM | PM | Vừa, lớn |
-| SRS / Product Backlog | 1 | BA / PO | KH | Tất cả |
-| RTM | 1 → 4 | BA | PM | Vừa, lớn (nhỏ: liên kết trên công cụ) |
-| HLD | 2 | SA | PM, TL | Tất cả |
-| LLD | 2 | TL | SA | Vừa, lớn |
-| ADR | 2 → 6 | SA, TL | SA | Tất cả (cho quyết định lớn) |
-| API spec | 2 → 3 | TL | SA | Khi có API |
-| Threat model | 2 | SA | — | Khi xử lý dữ liệu nhạy cảm/thanh toán/xác thực |
-| Test Plan | 2 | Test Lead | PM | Vừa, lớn |
-| Test case | 4 | QC | Test Lead | Tất cả |
+| SOW / Hợp đồng | 1 | PM | KH, lãnh đạo | Tất cả |
+| Project Plan | 1 | PM | Lãnh đạo, SQA | Tất cả (dự án nhỏ: rút gọn) |
+| WBS, lịch dự án | 1 | PM, TL | PM | Vừa, lớn |
+| Risk Register | 1 → Phụ lục | PM | — | Tất cả |
+| CM Plan | 1 | CM | PM | Vừa, lớn |
+| SRS / Product Backlog | 2 | BA / PO | KH | Tất cả |
+| RTM | 2 → 5 | BA | PM | Vừa, lớn (nhỏ: liên kết trên công cụ) |
+| HLD | 3 | SA | PM, TL | Tất cả |
+| LLD | 3 | TL | SA | Vừa, lớn |
+| ADR | 3 → 7 | SA, TL | SA | Tất cả (cho quyết định lớn) |
+| API spec | 3 → 4 | TL | SA | Khi có API |
+| Threat model | 3 | SA | — | Khi xử lý dữ liệu nhạy cảm/thanh toán/xác thực |
+| Test Plan | 3 | Test Lead | PM | Vừa, lớn |
+| Test case | 5 | QC | Test Lead | Tất cả |
 | Review record | Mọi giai đoạn | Người review | — | Tất cả (PR là review record cho code) |
-| Defect log | 4 → 6 | QC | — | Tất cả |
-| Test Summary Report | 4 | Test Lead | PM | Vừa, lớn |
-| Biên bản UAT | 5 | PM | KH | Tất cả dự án có KH |
-| Release note, changelog | 5 | PM, TL | PM | Tất cả |
-| Deployment & rollback plan | 5 | OPS | PM, TL | Tất cả |
-| Tài liệu vận hành, hướng dẫn sử dụng | 5 | TL, BA | PM | Tất cả |
-| Postmortem | 6 | TL/IC | PM | Sự cố SEV1/SEV2 |
-| Báo cáo đóng dự án | 7 | PM | Lãnh đạo | Tất cả |
+| Defect log | 5 → 7 | QC | — | Tất cả |
+| Test Summary Report | 5 | Test Lead | PM | Vừa, lớn |
+| Biên bản UAT | 6 | PM | KH | Tất cả dự án có KH |
+| Release note, changelog | 6 | PM, TL | PM | Tất cả |
+| Deployment & rollback plan | 6 | OPS | PM, TL | Tất cả |
+| Tài liệu vận hành, hướng dẫn sử dụng | 6 | TL, BA | PM | Tất cả |
+| Postmortem | 7 | TL/IC | PM | Sự cố SEV1/SEV2 |
+| Báo cáo đóng dự án | Phụ lục | PM | Lãnh đạo | Tất cả |
 
 ## 22. Template
 
@@ -1385,3 +1415,4 @@ repository dự án.
 | Version | Ngày | Nội dung |
 |---|---|---|
 | 1.0 | 2026-10-06 | Bản đầu tiên |
+| 1.1 | 2026-10-17 | Đổi sang khung 7 giai đoạn (đồng bộ với `QUY_TRINH_SAN_XUAT_PHAN_MEM.md`): Giai đoạn 0-6 cũ renumber thành 1-7, Giai đoạn 7 cũ (Đóng dự án) chuyển thành Phụ lục ngoài khung 7 giai đoạn. Mã gate G0-G7 giữ nguyên, chỉ đổi mô tả "Thời điểm". Thêm dòng "Skill điều phối" (`/developer:discovery-planning`...`/developer:operation-maintenance`) cho mỗi giai đoạn. |

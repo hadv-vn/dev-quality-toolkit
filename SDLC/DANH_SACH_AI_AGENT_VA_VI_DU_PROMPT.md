@@ -1,11 +1,16 @@
 # Danh sách AI Agent & Ví dụ cách đặt prompt
 
-Tài liệu này giới thiệu toàn bộ **45 agent** (plugin `developer`, version `0.4.0`)
-trong `dev-quality-toolkit`, nhóm theo 6 giai đoạn SDLC đã mô tả tại
+Tài liệu này giới thiệu toàn bộ **45 agent** (plugin `developer`, version `0.5.0`)
+trong `dev-quality-toolkit`, nhóm theo **7 giai đoạn SDLC** đã mô tả tại
 [`QUY_TRINH_SAN_XUAT_PHAN_MEM.md`](./QUY_TRINH_SAN_XUAT_PHAN_MEM.md). Mỗi agent
 chỉ làm **một việc duy nhất** — khi gặp yêu cầu, hãy mô tả đúng việc cần làm,
 Claude Code sẽ tự chọn agent phù hợp dựa trên nội dung prompt; không cần gọi
 tên agent theo cú pháp đặc biệt.
+
+Mỗi giai đoạn còn có một **skill điều phối** (`/developer:<tên-skill>`) — tự
+chọn đúng agent cần dùng cho tình huống cụ thể trong giai đoạn đó (không chạy
+cho đủ bộ), chạy chúng, và tổng hợp kết quả; dùng khi cần một vòng xử lý đầy
+đủ cho cả giai đoạn thay vì gọi từng agent lẻ.
 
 > Cách dùng nhanh: nếu không chắc nên dùng agent nào, cứ mô tả vấn đề bằng
 > ngôn ngữ tự nhiên như các ví dụ dưới đây — mô tả CÀNG CỤ THỂ (tên file,
@@ -14,35 +19,63 @@ tên agent theo cú pháp đặc biệt.
 > trực tiếp danh sách agent đã đăng ký và ranh giới của từng agent để tư vấn,
 > nên luôn đúng với hiện trạng repo kể cả khi tài liệu này chưa kịp cập nhật.
 
+> **Một vài agent được dùng lại ở nhiều giai đoạn** (ví dụ `requirements-analyst`
+> ở cả giai đoạn 1 và 2, `wbs-writer` ở cả giai đoạn 1 và 3). Để tổng số không
+> bị đếm trùng, mỗi agent chỉ được tính **một lần** ở giai đoạn chính (primary)
+> trong mục lục dưới đây; các lượt dùng lại được ghi chú ngay trong mô tả
+> "Chức năng" của agent đó.
+
 ## Mục lục theo giai đoạn
 
-| Giai đoạn | Số agent |
+| Giai đoạn | Số agent (primary) |
 |---|---|
-| 1. Thu thập & Phân tích yêu cầu | 2 |
-| 2. Thiết kế | 13 |
-| 3. Phát triển (Coding) | 11 + 1 skill |
-| 4. Kiểm thử | 5 |
-| 5. Triển khai | 5 |
-| 6. Vận hành & Bảo trì | 7 |
-| Xuyên suốt (quality gate & điều phối) | 2 + 2 skill |
+| 1. Discovery & Planning | 1 |
+| 2. Requirements Analysis | 1 |
+| 3. Architecture & Design | 13 |
+| 4. Implementation | 11 + 1 skill |
+| 5. Verification & Testing | 5 |
+| 6. Release & Deployment | 6 |
+| 7. Operation & Maintenance | 7 |
+| Xuyên suốt (quality gate & điều phối) | 1 + 3 skill |
 
 ---
 
-## 1. Thu thập & Phân tích yêu cầu
+## 1. Discovery & Planning
+
+**Skill điều phối:** `/developer:discovery-planning`
 
 ### `requirements-analyst`
-**Chức năng:** Làm rõ yêu cầu nghiệp vụ còn mơ hồ thành user story có cấu trúc kèm acceptance criteria rõ ràng, trước khi có bất kỳ thiết kế kỹ thuật nào.
+**Chức năng:** Làm rõ vấn đề/ý tưởng còn mơ hồ thành user story có cấu trúc
+kèm acceptance criteria rõ ràng, ước lượng quy mô THÔ (nhỏ/vừa/lớn), trước khi
+có bất kỳ thiết kế kỹ thuật nào. (Dùng lại ở giai đoạn 2 — Requirements
+Analysis — nếu yêu cầu vẫn còn thiếu chi tiết sau bước này.)
 **Ví dụ prompt:**
 - "Sếp tôi muốn có tính năng 'thông báo cho khách hàng khi đơn hàng có vấn đề' nhưng nói còn rất mơ hồ, giúp tôi làm rõ thành user story."
 - "Phân tích giúp yêu cầu này: cho phép người dùng tự export dữ liệu cá nhân, kèm acceptance criteria rõ ràng."
+
+---
+
+## 2. Requirements Analysis
+
+**Skill điều phối:** `/developer:requirements-analysis`
+
+### `requirements-analyst`
+Xem mô tả ở giai đoạn 1 — dùng lại ở đây nếu yêu cầu đưa vào giai đoạn này
+vẫn còn thiếu đối tượng dùng/phạm vi/acceptance criteria.
 
 ### `srs-writer`
 **Chức năng:** Cấu trúc hóa một yêu cầu ĐÃ ĐƯỢC LÀM RÕ (output `requirements-analyst`) thành tài liệu Software Requirements Specification (SRS) theo tinh thần IEEE 830 rút gọn. Chỉ định dạng hóa lại, không tự đào sâu/làm rõ yêu cầu thay.
 **Ví dụ prompt:** "requirements-analyst đã làm rõ xong yêu cầu export đơn hàng ra CSV, giúp tôi viết thành tài liệu SRS chính thức."
 
+### `rtm-manager`
+**Chức năng:** Tạo mới/cập nhật Requirements Traceability Matrix — nối TỪNG ID yêu cầu với thiết kế, code/PR, test case và kết quả test, chỉ ghi nhận liên kết có bằng chứng thực tế (Grep được). Thường khởi tạo ở giai đoạn này ngay sau khi có SRS, rồi cập nhật tiếp ở giai đoạn 5 — Verification & Testing. (Tính là agent "Xuyên suốt" trong mục lục vì dùng ở nhiều giai đoạn.)
+**Ví dụ prompt:** "SRS tính năng đặt hàng đã có ID REQ-ORD-001 đến REQ-ORD-010, khởi tạo RTM giúp tôi."
+
 ---
 
-## 2. Thiết kế
+## 3. Architecture & Design
+
+**Skill điều phối:** `/developer:architecture-design`
 
 ### `system-architect`
 **Chức năng:** Lập kế hoạch kiến trúc cho một tính năng/hệ thống lớn chưa tồn tại, so sánh trade-off giữa các phương án CHƯA chốt.
@@ -94,7 +127,7 @@ tên agent theo cú pháp đặc biệt.
 **Ví dụ prompt:** "Thiết kế giúp luồng màn hình đặt lại mật khẩu: nhập email, nhập OTP, đặt mật khẩu mới, kèm quy tắc validate."
 
 ### `test-plan-writer`
-**Chức năng:** Soạn Test Plan (phạm vi, cấp độ kiểm thử, loại kiểm thử, môi trường, tiêu chí vào/ra) TRƯỚC KHI viết test case/test code thật.
+**Chức năng:** Soạn Test Plan (phạm vi, cấp độ kiểm thử, loại kiểm thử, môi trường, tiêu chí vào/ra) TRƯỚC KHI viết test case/test code thật — chuẩn bị cho giai đoạn 5 (Verification & Testing).
 **Ví dụ prompt:** "SRS tính năng thanh toán đã rõ, giúp soạn Test Plan trước khi team bắt đầu viết test case."
 
 ### `project-estimator`
@@ -104,12 +137,15 @@ tên agent theo cú pháp đặc biệt.
 - "Dựa vào lịch sử sửa module thanh toán trước đây, ước lượng effort cho việc thêm cổng thanh toán mới."
 
 ### `wbs-writer`
-**Chức năng:** Cấu trúc hóa phân rã công việc + ước lượng ĐÃ CÓ (output `project-estimator`) thành Work Breakdown Structure phân cấp Phase → Deliverable → Task → Subtask.
+**Chức năng:** Cấu trúc hóa phân rã công việc + ước lượng ĐÃ CÓ (output `project-estimator`) thành Work Breakdown Structure phân cấp Phase → Deliverable → Task → Subtask. (Dùng lại ở giai đoạn 1 — Discovery & Planning — ở mức sơ bộ, chưa cần effort chi tiết.)
 **Ví dụ prompt:** "project-estimator đã ước lượng xong effort cho tính năng export CSV, giúp tôi dựng thành WBS phân cấp."
 
 ---
 
-## 3. Phát triển (Coding)
+## 4. Implementation
+
+**Skill điều phối:** `/developer:implementation` (phản hồi nhanh trong lúc
+code) — khi sắp merge, dùng `/developer:pre-merge` làm cổng kiểm tra cuối.
 
 ### `android-commit-reviewer`
 **Chức năng:** Review commit/diff Android (Kotlin/Java, Gradle, Compose, Manifest) trước khi merge.
@@ -140,11 +176,11 @@ tên agent theo cú pháp đặc biệt.
 **Ví dụ prompt:** "Rà soát giúp package.json xem có CVE hay license rủi ro không."
 
 ### `dependency-upgrader`
-**Chức năng:** Thực thi nâng cấp version package/framework cụ thể, xử lý breaking change, chạy test xác nhận không regression.
+**Chức năng:** Thực thi nâng cấp version package/framework cụ thể, xử lý breaking change, chạy test xác nhận không regression. (Dùng lại ở giai đoạn 7 — Operation & Maintenance — khi cần vá CVE/nâng cấp định kỳ sau khi đã lên production.)
 **Ví dụ prompt:** "Nâng cấp giúp Express từ 4 lên 5, xử lý luôn breaking change nếu có."
 
 ### `tech-debt-tracker`
-**Chức năng:** Quét và ưu tiên hóa nợ kỹ thuật toàn repo (TODO/FIXME, dead code, API deprecated, test bị skip) thành backlog.
+**Chức năng:** Quét và ưu tiên hóa nợ kỹ thuật toàn repo (TODO/FIXME, dead code, API deprecated, test bị skip) thành backlog. (Dùng lại ở giai đoạn 7 — Operation & Maintenance — để dọn nợ kỹ thuật tích lũy theo thời gian.)
 **Ví dụ prompt:** "Quét giúp toàn bộ dự án xem nợ kỹ thuật đang ở đâu, cái nào nên xử lý trước."
 
 ### `api-doc-generator`
@@ -161,7 +197,9 @@ tên agent theo cú pháp đặc biệt.
 
 ---
 
-## 4. Kiểm thử
+## 5. Verification & Testing
+
+**Skill điều phối:** `/developer:verification-testing`
 
 ### `e2e-test-runner`
 **Chức năng:** Viết và/hoặc chạy integration/E2E test cho một luồng nghiệp vụ hoặc API cụ thể.
@@ -183,9 +221,14 @@ tên agent theo cú pháp đặc biệt.
 **Chức năng:** Phân tích hiệu năng — bottleneck thuật toán, query chậm, N+1 query, memory leak.
 **Ví dụ prompt:** "Profile giúp module services/reports/ xem có bottleneck hay query chậm không."
 
+> `rtm-manager` (xem giai đoạn 2) cũng được dùng lại ở đây để nối test
+> case/kết quả test với ID yêu cầu, nếu dự án đã khởi tạo RTM.
+
 ---
 
-## 5. Triển khai
+## 6. Release & Deployment
+
+**Skill điều phối:** `/developer:release-deployment`
 
 ### `docker-optimizer`
 **Chức năng:** Tối ưu Dockerfile theo 3 trục: kích thước image, layer caching, bảo mật (non-root, pin version).
@@ -209,9 +252,15 @@ tên agent theo cú pháp đặc biệt.
 - "Chuẩn bị release v2.3.0 giúp tôi, gồm checklist go/no-go và kế hoạch rollback."
 - "Lập kế hoạch điều phối deploy bản v1.5.0 lên production, có migration DB kèm theo."
 
+### `changelog-writer`
+**Chức năng:** Tổng hợp CHANGELOG từ lịch sử commit/PR giữa hai mốc, chuẩn bị cho một bản release. (Dùng lại ở giai đoạn 7 — Operation & Maintenance — để ghi nhận các bản hotfix/patch sau khi phát hành.)
+**Ví dụ prompt:** "Tổng hợp CHANGELOG từ tag v1.2.0 tới HEAD trước khi release v1.3.0."
+
 ---
 
-## 6. Vận hành & Bảo trì
+## 7. Operation & Maintenance
+
+**Skill điều phối:** `/developer:operation-maintenance`
 
 ### `incident-commander`
 **Chức năng:** Điều phối phản ứng khi sự cố production ĐANG DIỄN RA — xác định severity, checklist hành động ngay, bằng chứng cần thu thập (không tự thực hiện khắc phục).
@@ -227,10 +276,6 @@ tên agent theo cú pháp đặc biệt.
 **Chức năng:** Truy nguyên nguyên nhân gốc của một sự cố/stack trace/crash log cụ thể qua call chain và git blame.
 **Ví dụ prompt:** "Đây là stack trace NullPointerException từ production, giúp tôi tìm nguyên nhân gốc."
 
-### `changelog-writer`
-**Chức năng:** Tổng hợp CHANGELOG từ lịch sử commit/PR giữa hai mốc, chuẩn bị cho một bản release.
-**Ví dụ prompt:** "Tổng hợp CHANGELOG từ tag v1.2.0 tới HEAD trước khi release v1.3.0."
-
 ### `onboarding-guide`
 **Chức năng:** Giải thích tổng quan codebase, kiến trúc, cách chạy dự án cho developer mới — qua hội thoại, không viết file.
 **Ví dụ prompt:** "Tôi mới vào dự án, giải thích giúp cấu trúc tổng quan và cách chạy dự án này."
@@ -243,27 +288,52 @@ tên agent theo cú pháp đặc biệt.
 **Chức năng:** Viết mới hoặc cập nhật README, hướng dẫn cài đặt/sử dụng, CONTRIBUTING, tài liệu nội bộ.
 **Ví dụ prompt:** "Viết README cho module payment/ mới thêm."
 
----
-
-## Xuyên suốt — Quality gate & điều phối
-
 ### `qms-compliance-checker`
-**Chức năng:** Đối chiếu một dự án/tính năng với checklist quy trình chất lượng nội bộ kiểu CMMI (ADR, test coverage, security audit, changelog...), chỉ ra cổng chất lượng nào đã qua/còn thiếu. Chỉ kiểm tra SỰ TỒN TẠI artifact, không nối liên kết chi tiết từng yêu cầu (đó là `rtm-manager`).
+**Chức năng:** Đối chiếu một dự án/tính năng với checklist quy trình chất lượng nội bộ kiểu CMMI (ADR, test coverage, security audit, changelog...), chỉ ra cổng chất lượng nào đã qua/còn thiếu. Chỉ kiểm tra SỰ TỒN TẠI artifact, không nối liên kết chi tiết từng yêu cầu (đó là `rtm-manager`). Dùng định kỳ, không chỉ riêng ở giai đoạn này.
 **Ví dụ prompt:**
 - "Kiểm tra giúp tính năng thanh toán mới này đã đủ hồ sơ theo quy trình chất lượng chưa — ADR, test, security audit, changelog."
 - "Trước khi đóng sprint, đối chiếu giúp dự án này với checklist quality gate nội bộ."
 
+> `tech-debt-tracker` và `dependency-upgrader` (xem giai đoạn 4) cũng được
+> dùng lại ở đây cho việc bảo trì định kỳ (dọn nợ kỹ thuật, vá CVE tích lũy).
+> `changelog-writer` (xem giai đoạn 6) được dùng lại để ghi nhận bản hotfix.
+
+---
+
+## Xuyên suốt — Quality gate & điều phối
+
 ### `rtm-manager`
-**Chức năng:** Tạo mới/cập nhật Requirements Traceability Matrix — nối TỪNG ID yêu cầu với thiết kế, code/PR, test case và kết quả test, chỉ ghi nhận liên kết có bằng chứng thực tế (Grep được).
-**Ví dụ prompt:** "SRS tính năng đặt hàng đã có ID REQ-ORD-001 đến REQ-ORD-010, khởi tạo RTM giúp tôi."
+Xem mô tả đầy đủ ở giai đoạn 2 (Requirements Analysis) — khởi tạo ở đó, cập
+nhật tiếp ở giai đoạn 5 (Verification & Testing); mang tính xuyên suốt nên
+được liệt kê riêng ở đây trong mục lục.
 
 ### Skill `/developer:pre-merge`
-**Chức năng:** Điều phối các reviewer theo đúng stack công nghệ của diff, gộp kết quả thành một checklist PASS/WARN/FAIL duy nhất trước khi merge.
+**Chức năng:** Điều phối các reviewer theo đúng stack công nghệ của diff, gộp kết quả thành một checklist PASS/WARN/FAIL duy nhất trước khi merge. Dùng làm cổng kiểm tra cuối của giai đoạn 4 (Implementation) — khác `/developer:implementation` (dùng trong lúc code, phản hồi nhanh từng phần).
 **Ví dụ prompt:** `/developer:pre-merge`
 
 ### Skill `/developer:agent-advisor`
 **Chức năng:** Tư vấn nên dùng agent nào trong plugin cho một việc cụ thể — đọc trực tiếp `plugin.json` + mô tả/ranh giới từng agent (luôn đúng hiện trạng, không dựa danh sách tĩnh), đối chiếu bảng phân biệt các cặp agent dễ nhầm, trả về agent (hoặc chuỗi agent) phù hợp kèm prompt mẫu.
 **Ví dụ prompt:** `/developer:agent-advisor` "Tôi cần thiết kế lại luồng thanh toán, không biết nên bắt đầu từ agent nào."
+
+### Skill `/developer:commit`
+Xem mô tả đầy đủ ở giai đoạn 4 (Implementation).
+
+---
+
+## Skill điều phối theo giai đoạn (tổng hợp)
+
+| Giai đoạn | Skill |
+|---|---|
+| 1. Discovery & Planning | `/developer:discovery-planning` |
+| 2. Requirements Analysis | `/developer:requirements-analysis` |
+| 3. Architecture & Design | `/developer:architecture-design` |
+| 4. Implementation | `/developer:implementation` |
+| 5. Verification & Testing | `/developer:verification-testing` |
+| 6. Release & Deployment | `/developer:release-deployment` |
+| 7. Operation & Maintenance | `/developer:operation-maintenance` |
+| Xuyên suốt — commit | `/developer:commit` |
+| Xuyên suốt — cổng kiểm tra trước merge | `/developer:pre-merge` |
+| Xuyên suốt — tư vấn chọn agent | `/developer:agent-advisor` |
 
 ---
 
@@ -271,5 +341,5 @@ tên agent theo cú pháp đặc biệt.
 
 1. **Nêu rõ file/module cụ thể** thay vì mô tả chung ("review giúp file `order.py`" tốt hơn "review code giúp").
 2. **Nêu rõ giai đoạn/bối cảnh** khi dễ nhầm giữa hai agent gần nhau — ví dụ nói rõ "trước khi code" để vào `threat-modeler` thay vì `security-auditor` (agent đó chỉ soát code đã viết).
-3. **Với agent chỉ phân tích/báo cáo** (phần lớn agent ở Phần 2, 4, 6 và `qms-compliance-checker`), đừng kỳ vọng agent tự sửa file — nếu cần sửa, nối thêm yêu cầu dùng agent hành động tương ứng (ví dụ: `security-auditor` phát hiện lỗ hổng → tự sửa thủ công hoặc giao việc rõ ràng, vì agent này không có quyền Write/Edit).
-4. **Một prompt — một agent.** Nếu công việc trải qua nhiều giai đoạn (ví dụ "làm rõ yêu cầu rồi thiết kế luôn"), nên tách thành nhiều lượt hỏi tuần tự để đúng agent chuyên trách từng bước, tránh một agent lấn sang phạm vi agent khác.
+3. **Với agent chỉ phân tích/báo cáo** (phần lớn agent ở giai đoạn 3, 5, 7 và `qms-compliance-checker`), đừng kỳ vọng agent tự sửa file — nếu cần sửa, nối thêm yêu cầu dùng agent hành động tương ứng (ví dụ: `security-auditor` phát hiện lỗ hổng → tự sửa thủ công hoặc giao việc rõ ràng, vì agent này không có quyền Write/Edit).
+4. **Một prompt — một agent.** Nếu công việc trải qua nhiều giai đoạn (ví dụ "làm rõ yêu cầu rồi thiết kế luôn"), nên tách thành nhiều lượt hỏi tuần tự để đúng agent chuyên trách từng bước, tránh một agent lấn sang phạm vi agent khác — hoặc dùng lần lượt các skill điều phối theo đúng thứ tự giai đoạn.
