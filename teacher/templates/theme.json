@@ -1,0 +1,82 @@
+{
+  "_comment": "Theme trich xuat tu teacher/templates/Sinh_hoat_chuyen_mon_Dao_duc_VN_NB.pdf - dung lam chuan mau cho moi slide bai giang cua plugin teacher.",
+  "font": "Cambria",
+  "slide_size_in": { "width": 13.333, "height": 7.5 },
+  "colors": {
+    "cover_bg": "538235",
+    "cover_circle_outer": "385724",
+    "cover_circle_inner": "C5E0B4",
+    "divider_bg": "C55A11",
+    "divider_circle": "E8A33D",
+    "navy_bg": "1F3949",
+    "navy_box": "23404F",
+    "navy_circle": "2E5266",
+    "brown_bg": "2B201A",
+    "brown_circle": "E8A33D",
+    "card_beige": "F6F1EB",
+    "grey_box": "F2F0EC",
+    "quote_box_blue": "EAF1F3",
+    "chip_beige": "E4E0D8",
+    "chip_blue": "DCEBF0",
+    "divider_rule": "4A3B2C",
+    "text_cream": "FBF4E8",
+    "text_dark": "2B211A",
+    "text_body_grey": "6B645C",
+    "text_muted_tan": "B0A18A",
+    "text_light_tan": "D8CFC0",
+    "eyebrow_red": "A83349",
+    "eyebrow_orange": "E8A33D",
+    "navy_eyebrow_light": "AFCBD8",
+    "navy_text_muted": "9AA5A8",
+    "navy_quote_text": "C7DCE4",
+    "closing_body": "E8DFCE",
+    "highlight_pink": "F0B7B7",
+    "highlight_blue": "9FC4D6",
+    "highlight_gold": "E4C98A",
+    "green_check": "92D050",
+    "white": "FFFFFF"
+  },
+  "icons_dir": "assets/icons",
+  "icons": [
+    "book", "book-open", "map", "lightbulb", "swap", "people", "person",
+    "quote", "hand", "sprout", "eye", "menu", "backpack", "bear", "acorn",
+    "scale", "question", "chat", "heart", "check", "clock"
+  ],
+  "layouts": {
+    "cover": {
+      "bg": "cover_bg",
+      "use_for": "Ten bai hoc (phan 3 trong outline 7 phan)",
+      "placeholders": ["eyebrow", "title", "subtitle", "caption_icon", "caption_text", "footer_note"]
+    },
+    "divider": {
+      "bg": "divider_bg",
+      "use_for": "Goi mo (phan 2), hoac chuyen y giua cac hoat dong",
+      "placeholders": ["title", "subtitle"]
+    },
+    "cards_2x2": {
+      "bg": "white",
+      "use_for": "Muc tieu dat duoc (phan 4), huong dan Tro choi khoi dong (phan 1), hoac Luyen tap dang 4 cau hoi (phan 6)",
+      "placeholders": ["eyebrow", "title", "card1_icon", "card1_title", "card1_desc", "card2_icon", "card2_title", "card2_desc", "card3_icon", "card3_title", "card3_desc", "card4_icon", "card4_title", "card4_desc", "breadcrumb", "pagenum"]
+    },
+    "icon_list": {
+      "bg": "white",
+      "use_for": "Kham pha noi dung (phan 5) - liet ke dac diem/don vi kien thuc theo hang doc",
+      "placeholders": ["eyebrow", "title", "row1_icon", "row1_title", "row1_desc", "row2_icon", "row2_title", "row2_desc", "row3_icon", "row3_title", "row3_desc", "row4_icon", "row4_title", "row4_desc", "breadcrumb", "pagenum"]
+    },
+    "compare_quote": {
+      "bg": "white",
+      "use_for": "Kham pha noi dung (phan 5) - doi chieu quan niem thuong gap vs. y dung/trich dan, co the kem day truyen trinh tu buoc",
+      "placeholders": ["eyebrow", "title", "myth_label", "myth_text", "quote_label", "quote_text", "note_title", "note_text", "breadcrumb", "pagenum"]
+    },
+    "dark_checklist": {
+      "bg": "navy_bg",
+      "use_for": "Luyen tap (phan 6) dang checklist, hoac nhan manh tieu chi quan trong",
+      "placeholders": ["eyebrow", "title", "myth_label", "myth_text", "list_label", "item1", "item2", "item3", "item4"]
+    },
+    "closing": {
+      "bg": "brown_bg",
+      "use_for": "Van dung (phan 7) - nhiem vu ve nha / loi nhan gui hoc sinh",
+      "placeholders": ["eyebrow", "title_line1", "title_line2", "item1", "item2", "item3", "caption"]
+    }
+  }
+}

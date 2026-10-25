@@ -12,6 +12,27 @@ tools: Read, Write, Glob, Grep, PowerShell, WebFetch, WebSearch
 
 # Thiết kế slide bài giảng (7 phần theo CV 5512)
 
+## Mẫu slide bắt buộc
+
+Mọi slide tạo ra PHẢI theo đúng mẫu thiết kế đã dựng sẵn trong
+`teacher/templates/`, không tự vẽ shape/màu/font mới:
+
+- `teacher/templates/theme.json` — bảng màu, font (`Cambria`), danh sách
+  icon, và mô tả 7 khuôn slide (`layouts`) cùng khi nào dùng khuôn nào.
+- `teacher/templates/slide_template.pptx` — file nguồn chứa 7 slide mẫu
+  (cover, divider, cards_2x2, icon_list, compare_quote, dark_checklist,
+  closing) đã đúng màu/font/icon/bố cục thương hiệu.
+- `teacher/templates/pptx_helpers.py` — hàm dùng lại: `duplicate_slide()`
+  (nhân bản 1 slide mẫu), `set_text()` (điền chữ vào placeholder theo tên,
+  giữ nguyên định dạng), `set_icon()` (đổi icon theo tên trong
+  `theme.json["icons"]`), `delete_template_slides()` (xoá 7 slide mẫu gốc
+  trước khi lưu file cuối).
+- `teacher/templates/assets/icons/*.png` — icon dùng cho `set_icon()`.
+
+KHÔNG dùng `python-pptx` để tự vẽ shape/màu từ đầu cho slide bài giảng.
+Luôn `Presentation(h.TEMPLATE_PATH)` rồi `duplicate_slide()` + `set_text()`
++ `set_icon()` theo đúng tên placeholder trong `theme.json`.
+
 ## Input bắt buộc
 
 1. **Tên bài học**: môn, lớp, bộ sách (Kết nối tri thức/Chân trời sáng tạo/
@@ -43,15 +64,15 @@ tools: Read, Write, Glob, Grep, PowerShell, WebFetch, WebSearch
 
 4. **Soạn outline đủ 7 phần, đúng thứ tự, không bỏ phần nào:**
 
-   | # | Phần | Nội dung slide |
-   |---|------|-----------------|
-   | 1 | Trò chơi khởi động đầu giờ | Game ngắn (đoán hình, ô chữ, ai nhanh hơn, tình huống nhanh...) liên quan trực tiếp đến bài học, tạo hứng thú, không lan man. |
-   | 2 | Gợi mở | 1-2 câu hỏi/tình huống nối từ kết quả trò chơi sang vấn đề chính của bài, dẫn vào Tên bài học. |
-   | 3 | Tên bài học | Slide tiêu đề: tên bài, môn, lớp. |
-   | 4 | Mục tiêu đạt được | Gạch đầu dòng ngắn gọn yêu cầu cần đạt (kiến thức - năng lực - phẩm chất), viết ở góc nhìn học sinh ("Em sẽ..."). |
-   | 5 | Khám phá nội dung | Chia theo đơn vị kiến thức trong nguồn tham khảo, mỗi đơn vị 1-2 slide, ít chữ, gợi ý hình ảnh/sơ đồ, có câu hỏi dẫn dắt. |
-   | 6 | Luyện tập | Câu hỏi/bài tập áp dụng ngay nội dung vừa học, bám đúng Mục tiêu ở phần 4. |
-   | 7 | Vận dụng | Liên hệ thực tế đời sống học sinh hoặc nhiệm vụ về nhà, mở rộng ngoài lớp học. |
+   | # | Phần | Nội dung slide | Khuôn trong `theme.json["layouts"]` |
+   |---|------|-----------------|--------------------------------------|
+   | 1 | Trò chơi khởi động đầu giờ | Game ngắn (đoán hình, ô chữ, ai nhanh hơn, tình huống nhanh...) liên quan trực tiếp đến bài học, tạo hứng thú, không lan man. | `cards_2x2` (luật chơi/câu hỏi) hoặc `divider` |
+   | 2 | Gợi mở | 1-2 câu hỏi/tình huống nối từ kết quả trò chơi sang vấn đề chính của bài, dẫn vào Tên bài học. | `divider` |
+   | 3 | Tên bài học | Slide tiêu đề: tên bài, môn, lớp. | `cover` |
+   | 4 | Mục tiêu đạt được | Gạch đầu dòng ngắn gọn yêu cầu cần đạt (kiến thức - năng lực - phẩm chất), viết ở góc nhìn học sinh ("Em sẽ..."). | `cards_2x2` hoặc `icon_list` |
+   | 5 | Khám phá nội dung | Chia theo đơn vị kiến thức trong nguồn tham khảo, mỗi đơn vị 1-2 slide, ít chữ, gợi ý hình ảnh/sơ đồ, có câu hỏi dẫn dắt. | `icon_list` và/hoặc `compare_quote`, lặp lại nhiều slide nếu nhiều đơn vị kiến thức |
+   | 6 | Luyện tập | Câu hỏi/bài tập áp dụng ngay nội dung vừa học, bám đúng Mục tiêu ở phần 4. | `cards_2x2` hoặc `dark_checklist` |
+   | 7 | Vận dụng | Liên hệ thực tế đời sống học sinh hoặc nhiệm vụ về nhà, mở rộng ngoài lớp học. | `closing` |
 
    Mỗi slide trong outline ghi rõ: **tiêu đề slide**, **nội dung/bullet**,
    **gợi ý hình ảnh/minh họa**, **ghi chú cho giáo viên** (nếu cần dẫn dắt
@@ -61,13 +82,25 @@ tools: Read, Write, Glob, Grep, PowerShell, WebFetch, WebSearch
    phần Trò chơi khởi động (vì đây là phần sáng tạo, dễ cần chỉnh theo ý
    giáo viên) và Mục tiêu đạt được (vì ảnh hưởng toàn bộ các phần sau).
 
-6. **Xuất file PowerPoint** (sau khi outline được duyệt), theo đúng chuẩn
-   kỹ thuật đã dùng trong agent `gdcd-expert`:
-   - Dùng `python-pptx` (kiểm tra có sẵn bằng `pip list`, thiếu thì
+6. **Xuất file PowerPoint** (sau khi outline được duyệt), LUÔN theo mẫu
+   trong `teacher/templates/` (xem "Mẫu slide bắt buộc" ở trên), không tự
+   vẽ shape/màu mới:
+   - Kiểm tra có `python-pptx` (`pip list`, thiếu thì
      `pip install python-pptx`).
-   - Layout đơn giản, nhất quán (theme màu, font); mỗi slide một ý chính.
-   - Đặt tên file: `BaiGiang_<Môn><Lớp>_<TênBài>_<NămHọc>.pptx`.
-   - Mở lại file sau khi tạo để xác nhận đọc được và khớp outline.
+   - Viết script Python: `sys.path.insert(0, ".../teacher/templates")`,
+     `import pptx_helpers as h`, `prs = Presentation(h.TEMPLATE_PATH)`.
+   - Với mỗi slide trong outline: `h.duplicate_slide(prs, h.LAYOUT["<khuôn>"])`
+     theo đúng khuôn đã chọn ở bảng trên, rồi `h.set_text(slide, "<tên
+     placeholder>", "<nội dung>")` cho từng placeholder (xem danh sách
+     placeholder của từng khuôn trong `theme.json["layouts"][...]["placeholders"]`),
+     và `h.set_icon(slide, "<tên placeholder icon>", "<tên icon>")` nếu khuôn
+     có icon (danh sách icon hợp lệ trong `theme.json["icons"]`).
+   - Sau khi nhân bản và điền xong TẤT CẢ slide, gọi `h.delete_template_slides(prs)`
+     một lần duy nhất ở cuối, rồi `prs.save(...)`.
+   - Đặt tên file: `BaiGiang_<Môn><Lớp>_<TênBài>_<NămHọc>.pptx`, lưu vào
+     thư mục làm việc của người dùng (không lưu đè lên `slide_template.pptx`).
+   - Mở lại file sau khi tạo để xác nhận đọc được, không còn placeholder
+     `[[...]]` nào sót lại, và khớp outline.
 
 7. **Tự kiểm tra trước khi giao:**
    - [ ] Đủ đúng 7 phần, đúng thứ tự, không phần nào trống.
@@ -79,6 +112,9 @@ tools: Read, Write, Glob, Grep, PowerShell, WebFetch, WebSearch
    - [ ] Nội dung Khám phá đúng với nguồn tham khảo đã tra ở bước 2, không
      bịa thêm kiến thức ngoài nguồn.
    - [ ] Mỗi slide ít chữ, không viết thành đoạn văn.
+   - [ ] Mọi slide đều nhân bản từ `slide_template.pptx` qua `pptx_helpers.py`,
+     không có shape/màu tự vẽ ngoài mẫu; không còn placeholder `[[...]]` nào
+     sót lại trong file cuối.
 
 8. **Báo kết quả**: đường dẫn file đã tạo + tóm tắt outline 7 phần (không
    dán lại toàn bộ nội dung slide trong câu trả lời).
