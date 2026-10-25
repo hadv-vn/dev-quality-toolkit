@@ -23,6 +23,12 @@
       "source": "./teacher",
       "description": "Agent giáo viên xuất sắc, chuyên gia môn GDCD (lớp 6-9) và Giáo dục kinh tế và pháp luật (lớp 10-12): soạn bài giảng, giáo án/kế hoạch bài dạy, slide PowerPoint, phiếu học tập, ra đề kiểm tra, ma trận, bản đặc tả bằng Word/Excel/PowerPoint.",
       "version": "0.1.0"
+    },
+    {
+      "name": "my-style",
+      "source": "./my-style",
+      "description": "Nguyên tắc và phong cách cá nhân áp dụng xuyên suốt mọi dự án (naming, cấu trúc, quy trình làm việc, điểm nhấn riêng).",
+      "version": "0.1.0"
     }
   ]
 }
