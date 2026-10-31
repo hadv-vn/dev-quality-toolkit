@@ -5,7 +5,7 @@ $allPlugins = @(
     @{ Name = "agent-architect"; Description = "Thiet ke va tao moi cac AI sub-agent chuyen nghiep" }
     @{ Name = "developer"; Description = "Review commit (Android, Qt C++/C), code Python, bao mat, hieu nang" }
     @{ Name = "teacher"; Description = "Agent giao vien GDCD / Giao duc kinh te va phap luat" }
-    @{ Name = "my-style"; Description = "Nguyen tac va phong cach ca nhan ap dung xuyen suot moi du an" }
+    @{ Name = "my-style"; Description = "Nguyen tac/phong cach ca nhan + khoi tao file rule phong cach code cho project (9 triet ly lap trinh huyen thoai)" }
 )
 
 Write-Host ""

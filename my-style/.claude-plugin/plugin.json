@@ -1,7 +1,7 @@
 {
   "name": "my-style",
-  "description": "Nguyên tắc và phong cách cá nhân áp dụng xuyên suốt mọi dự án (naming, cấu trúc, quy trình làm việc, điểm nhấn riêng).",
-  "version": "0.1.0",
+  "description": "Nguyên tắc và phong cách cá nhân áp dụng xuyên suốt mọi dự án (naming, cấu trúc, quy trình làm việc, điểm nhấn riêng). Kèm skill /my-style:commit (soạn commit mô tả đầy đủ), và agent init-project + skill /my-style:init (khởi tạo file rule phong cách code cho project theo 9 triết lý lập trình huyền thoại: Linus Torvalds, John Carmack, Ken Thompson & Rob Pike, Kent Beck, Martin Fowler, Donald Knuth & Guido van Rossum, Jeff Dean, antirez, DHH).",
+  "version": "0.2.0",
   "author": {
     "name": "coder.hadv",
     "email": "coder.hadv@gmail.com"
