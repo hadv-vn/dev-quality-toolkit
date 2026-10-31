@@ -4,7 +4,7 @@ description: >
   Tổng hợp CHANGELOG từ lịch sử commit/PR giữa hai mốc — hai tag/version, từ
   tag gần nhất tới HEAD, hoặc theo khoảng thời gian cụ thể — để chuẩn bị cho
   một bản release. Không viết mô tả cho một PR đơn lẻ (`pr-description-writer`),
-  không chuẩn hóa message cho một commit sắp tạo (skill `/developer:commit`).
+  không chuẩn hóa message cho một commit sắp tạo (skill `/my-style:commit`).
   Ví dụ: "Tổng hợp CHANGELOG từ tag v1.2.0 tới HEAD trước khi release v1.3.0"
   hoặc "Viết CHANGELOG cho các commit tuần này".
 tools: Read, Grep, Glob, Write, Edit, Bash

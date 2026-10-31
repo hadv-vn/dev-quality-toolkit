@@ -69,6 +69,6 @@ có gì để xem → báo và dừng.
 ...
 
 ## Bước tiếp theo đề xuất
-`/developer:commit` để commit phần vừa xong, hoặc `/developer:pre-merge` khi
+`/my-style:commit` để commit phần vừa xong, hoặc `/developer:pre-merge` khi
 đã hoàn tất tính năng và muốn chuẩn bị merge.
 ```

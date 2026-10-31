@@ -295,7 +295,7 @@ tra cuối (tổng hợp PASS/WARN/FAIL nghiêm ngặt hơn).
 | Nâng cấp version package, xử lý breaking change | `dependency-upgrader` |
 | Quét và ưu tiên hóa nợ kỹ thuật (TODO, code chết, API deprecated) | `tech-debt-tracker` |
 | Sinh/cập nhật tài liệu API và docstring từ code | `api-doc-generator` |
-| Viết commit message theo convention dự án | skill `/developer:commit` |
+| Viết commit message theo convention dự án | skill `/my-style:commit` |
 | Viết mô tả Pull Request từ diff | `pr-description-writer` |
 
 ---
@@ -438,7 +438,7 @@ chạy cho đủ bộ) và gợi ý skill của giai đoạn kế tiếp:
 | 5. Verification & Testing | `/developer:verification-testing` |
 | 6. Release & Deployment | `/developer:release-deployment` |
 | 7. Operation & Maintenance | `/developer:operation-maintenance` |
-| Xuyên suốt — commit | `/developer:commit` |
+| Xuyên suốt — commit | `/my-style:commit` |
 | Xuyên suốt — cổng kiểm tra trước merge | `/developer:pre-merge` |
 | Xuyên suốt — tư vấn chọn agent | `/developer:agent-advisor` |
 

@@ -191,9 +191,9 @@ code) — khi sắp merge, dùng `/developer:pre-merge` làm cổng kiểm tra c
 **Chức năng:** Viết mô tả Pull Request dựa trên diff giữa nhánh và base branch.
 **Ví dụ prompt:** "Viết giúp mô tả PR cho nhánh feature/payment-retry so với main."
 
-### Skill `/developer:commit`
-**Chức năng:** Viết commit message theo convention của dự án rồi tạo commit sau khi người dùng xác nhận.
-**Ví dụ prompt:** `/developer:commit`
+### Skill `/my-style:commit`
+**Chức năng:** Viết commit message BẮT BUỘC có mô tả rõ ràng, đầy đủ (cái gì/tại sao/ảnh hưởng) rồi tạo commit sau khi người dùng xác nhận. (Trước đây là `/developer:commit` — đã gộp vào plugin `my-style` vì cùng logic an toàn, chỉ khác mức yêu cầu chi tiết message.)
+**Ví dụ prompt:** `/my-style:commit`
 
 ---
 
@@ -315,7 +315,7 @@ nhật tiếp ở giai đoạn 5 (Verification & Testing); mang tính xuyên su�
 **Chức năng:** Tư vấn nên dùng agent nào trong plugin cho một việc cụ thể — đọc trực tiếp `plugin.json` + mô tả/ranh giới từng agent (luôn đúng hiện trạng, không dựa danh sách tĩnh), đối chiếu bảng phân biệt các cặp agent dễ nhầm, trả về agent (hoặc chuỗi agent) phù hợp kèm prompt mẫu.
 **Ví dụ prompt:** `/developer:agent-advisor` "Tôi cần thiết kế lại luồng thanh toán, không biết nên bắt đầu từ agent nào."
 
-### Skill `/developer:commit`
+### Skill `/my-style:commit`
 Xem mô tả đầy đủ ở giai đoạn 4 (Implementation).
 
 ---
@@ -331,7 +331,7 @@ Xem mô tả đầy đủ ở giai đoạn 4 (Implementation).
 | 5. Verification & Testing | `/developer:verification-testing` |
 | 6. Release & Deployment | `/developer:release-deployment` |
 | 7. Operation & Maintenance | `/developer:operation-maintenance` |
-| Xuyên suốt — commit | `/developer:commit` |
+| Xuyên suốt — commit | `/my-style:commit` |
 | Xuyên suốt — cổng kiểm tra trước merge | `/developer:pre-merge` |
 | Xuyên suốt — tư vấn chọn agent | `/developer:agent-advisor` |
 

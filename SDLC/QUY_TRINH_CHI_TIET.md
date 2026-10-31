@@ -559,7 +559,7 @@ báo cáo CI (test, coverage, scan), RTM cập nhật.
 | Rà soát / nâng cấp dependency | `dependency-auditor`, `dependency-upgrader` |
 | Quét nợ kỹ thuật | `tech-debt-tracker` |
 | Sinh API doc, docstring | `api-doc-generator` |
-| Commit message, mô tả PR | skill `/developer:commit`, `pr-description-writer` |
+| Commit message, mô tả PR | skill `/my-style:commit`, `pr-description-writer` |
 | Kiểm tra trước khi merge | skill `/developer:pre-merge` |
 | Sửa CI fail | `ci-fixer` |
 
