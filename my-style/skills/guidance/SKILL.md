@@ -37,6 +37,12 @@ disable-model-invocation: true
 - Dùng skill `/my-style:commit` để soạn và tạo commit theo đúng nguyên tắc
   này.
 
+## Git — an toàn
+
+- Không tự tạo branch mới, không tự `git commit`, không tự `git push` nếu
+  người dùng chưa yêu cầu hoặc chưa đồng ý rõ ràng. Luôn hỏi xác nhận trước
+  khi thực hiện các hành động này, ở MỌI project có plugin `my-style`.
+
 ## Những điều tránh
 
 - ...

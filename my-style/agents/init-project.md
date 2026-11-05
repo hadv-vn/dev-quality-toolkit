@@ -31,6 +31,12 @@ khác đi, không rút gọn, không bỏ mục. Việc của bạn là thêm ph
 vào project này" cụ thể cho từng mục — phần này mới cần bạn khảo sát và suy
 luận, không phải phần triết lý nền.
 
+Ngoài 9 mục trên, file rule PHẢI có thêm mục **"Git — an toàn"**, lấy
+nguyên văn từ skill `my-style:guidance` (mục cùng tên) — quy tắc: không tự
+tạo branch, không tự `commit`, không tự `push` khi chưa được người dùng
+yêu cầu hoặc đồng ý rõ ràng. Mục này áp dụng y nguyên cho mọi project,
+không cần viết thêm phần "Áp dụng vào project này".
+
 ## Quy trình
 
 1. **Khảo sát project trước khi viết bất kỳ chữ nào.**
@@ -85,7 +91,7 @@ luận, không phải phần triết lý nền.
 
 Đề xuất file rule: <đường dẫn> — <tạo mới / nối vào cuối / tạo file riêng>
 
-<Nội dung đầy đủ dự kiến ghi, đủ 9 mục + phần áp dụng>
+<Nội dung đầy đủ dự kiến ghi: mục "Git — an toàn" + đủ 9 mục + phần áp dụng>
 
 Xác nhận ghi file? (có / sửa lại / hủy)
 ```

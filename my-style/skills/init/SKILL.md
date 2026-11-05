@@ -62,12 +62,15 @@ Chỉ hỏi khi thực sự cần — không hỏi những gì đã suy ra đư�
 
 ## Bước 3 — Soạn nội dung
 
-File rule tạo ra PHẢI gồm đủ 2 phần sau, theo đúng thứ tự:
+File rule tạo ra PHẢI gồm đủ 3 phần sau, theo đúng thứ tự:
 
-1. **Nguyên văn 9 mục từ skill `style-rules`** (copy đúng nội dung, không
+1. **Nguyên văn mục "Git — an toàn" từ skill `guidance`** (copy đúng nội
+   dung, không diễn giải lại) — quy tắc cố định, áp dụng y nguyên cho mọi
+   project, không cần phần "Áp dụng vào project này" riêng vì đã cụ thể sẵn.
+2. **Nguyên văn 9 mục từ skill `style-rules`** (copy đúng nội dung, không
    rút gọn, không bỏ mục nào) — đây là phần triết lý/nguyên tắc nền, dùng
    chung cho mọi project.
-2. **Ngay dưới mỗi mục, thêm đoạn "Áp dụng vào project này"** — 2-4 dòng cụ
+3. **Ngay dưới mỗi mục trong 9 mục, thêm đoạn "Áp dụng vào project này"** — 2-4 dòng cụ
    thể, dựa trên khảo sát ở Bước 1, ví dụ:
    - Mục 1 (Linus) ở project có nhiều `if`/`switch` xử lý case đặc biệt rải
      rác → chỉ ra đúng vùng code/pattern đó, gợi ý chuẩn hoá dữ liệu đầu vào
@@ -100,6 +103,10 @@ quyết định ở Bước 2. Chỉ `Write`/`Edit` sau khi người dùng xác 
 
 > Soạn bởi `/my-style:init` — 9 nguyên tắc nền + áp dụng cụ thể theo
 > stack: <stack đã khảo sát>.
+
+## Git — an toàn
+
+<nguyên văn mục "Git — an toàn" từ skill `guidance`>
 
 ## 1. "Taste" và cấu trúc dữ liệu — Linus Torvalds
 <nguyên văn mục 1>
