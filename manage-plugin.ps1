@@ -6,6 +6,7 @@ $allPlugins = @(
     @{ Name = "developer"; Description = "Review commit (Android, Qt C++/C), code Python, bao mat, hieu nang" }
     @{ Name = "teacher"; Description = "Agent giao vien GDCD / Giao duc kinh te va phap luat" }
     @{ Name = "my-style"; Description = "Nguyen tac/phong cach ca nhan + khoi tao file rule phong cach code cho project (9 triet ly lap trinh huyen thoai)" }
+    @{ Name = "android-toolkit"; Description = "Agent viet mock test cho Android (unit test JVM Mockito-Kotlin/MockK/Robolectric, instrumented test Espresso/Compose Test)" }
 )
 
 Write-Host ""
