@@ -1,0 +1,12 @@
+{
+  "name": "android-toolkit",
+  "description": "Agent chuyên viết mock test cho hệ thống Android: unit test JVM (Mockito-Kotlin/MockK/Robolectric) cho ViewModel/UseCase/Repository, và instrumented test (Espresso/Compose Test + Hilt test module hoặc fake DI) cho Activity/Fragment/Compose/Service — tự quyết loại test theo đối tượng cần kiểm thử, mock đúng tầng Android-specific (Context, LiveData/Flow, Coroutines, network layer).",
+  "version": "0.1.0",
+  "author": {
+    "name": "coder.hadv",
+    "email": "coder.hadv@gmail.com"
+  },
+  "agents": [
+    "./agents/android-mock-test-writer.md"
+  ]
+}

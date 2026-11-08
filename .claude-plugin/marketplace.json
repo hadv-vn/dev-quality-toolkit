@@ -29,6 +29,12 @@
       "source": "./my-style",
       "description": "Nguyên tắc và phong cách cá nhân áp dụng xuyên suốt mọi dự án (naming, cấu trúc, quy trình làm việc, điểm nhấn riêng). Kèm skill /my-style:commit và agent init-project + skill /my-style:init (khởi tạo file rule phong cách code cho project theo 9 triết lý lập trình huyền thoại).",
       "version": "0.2.0"
+    },
+    {
+      "name": "android-toolkit",
+      "source": "./android-toolkit",
+      "description": "Agent chuyên viết mock test cho hệ thống Android (unit test JVM Mockito-Kotlin/MockK/Robolectric, instrumented test Espresso/Compose Test + Hilt/fake DI), tự quyết loại test theo đối tượng cần kiểm thử.",
+      "version": "0.1.0"
     }
   ]
 }
