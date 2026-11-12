@@ -7,6 +7,7 @@ $allPlugins = @(
     @{ Name = "teacher"; Description = "Agent giao vien GDCD / Giao duc kinh te va phap luat" }
     @{ Name = "my-style"; Description = "Nguyen tac/phong cach ca nhan + khoi tao file rule phong cach code cho project (9 triet ly lap trinh huyen thoai)" }
     @{ Name = "android-toolkit"; Description = "Agent viet mock test cho Android (unit test JVM Mockito-Kotlin/MockK/Robolectric, instrumented test Espresso/Compose Test)" }
+    @{ Name = "ai-transformation"; Description = "Doi chieu project voi tieu chuan noi bo AI Transformation v3.0 (L0-L5, Leash A/A+, Decision Log, RTM, telemetry, Viva mini)" }
 )
 
 Write-Host ""

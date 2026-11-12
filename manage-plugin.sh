@@ -3,13 +3,14 @@ set -euo pipefail
 
 repo_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-names=(agent-architect developer teacher my-style android-toolkit)
+names=(agent-architect developer teacher my-style android-toolkit ai-transformation)
 descs=(
     "Thiet ke va tao moi cac AI sub-agent chuyen nghiep"
     "Review commit (Android, Qt C++/C), code Python, bao mat, hieu nang"
     "Agent giao vien GDCD / Giao duc kinh te va phap luat"
     "Nguyen tac/phong cach ca nhan + khoi tao file rule phong cach code cho project (9 triet ly lap trinh huyen thoai)"
     "Agent viet mock test cho Android (unit test JVM Mockito-Kotlin/MockK/Robolectric, instrumented test Espresso/Compose Test)"
+    "Doi chieu project voi tieu chuan noi bo AI Transformation v3.0 (L0-L5, Leash A/A+, Decision Log, RTM, telemetry, Viva mini)"
 )
 
 echo
