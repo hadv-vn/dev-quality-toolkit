@@ -1,12 +1,13 @@
 {
   "name": "ai-transformation",
-  "description": "Agent và skill đối chiếu một project/lát cắt với tiêu chuẩn nội bộ \"AI Transformation v3.0\" (artefact SCOPE/SPEC/MODULEMAP/ARCH/WBS/EST/RISK/DELEGATION-MAP/DOR/DECISION-LOG/RTM/telemetry theo 11 bước Build Playbook, mức ủy quyền L0-L5, Leash A/A+, 3 cơ chế governance, 3 luật cứng, Decision Log phải thật, RTM không mồ côi, telemetry đo bằng giờ người thật) để chấm PASS/MISSING/N-A theo từng bước và 3 cổng Viva mini. Kèm skill /ai-transformation:audit.",
-  "version": "0.1.0",
+  "description": "Agent và skill đối chiếu một project/lát cắt với tiêu chuẩn nội bộ \"AI Transformation v3.0\" (artefact SCOPE/SPEC/MODULEMAP/ARCH/WBS/EST/RISK/DELEGATION-MAP/DOR/DECISION-LOG/RTM/telemetry theo 11 bước Build Playbook, mức ủy quyền L0-L5, Leash A/A+, 3 cơ chế governance, 3 luật cứng, Decision Log phải thật, RTM không mồ côi, telemetry đo bằng giờ người thật) để chấm PASS/MISSING/N-A theo từng bước và 3 cổng Viva mini (skill /ai-transformation:audit), và tính KPI theo Program §8 — KPI vận hành (AI Adoption, Rework Rate, Nén, Hiệu quả token...) từ telemetry thật, Knowledge Health (c1-c7: Traceability, Orphan Rate, Decision Coverage...) tự đọc repo, tuyệt đối không bịa số khi thiếu dữ liệu nguồn (skill /ai-transformation:kpi).",
+  "version": "0.2.0",
   "author": {
     "name": "coder.hadv",
     "email": "coder.hadv@gmail.com"
   },
   "agents": [
-    "./agents/standard-auditor.md"
+    "./agents/standard-auditor.md",
+    "./agents/kpi-analyst.md"
   ]
 }
